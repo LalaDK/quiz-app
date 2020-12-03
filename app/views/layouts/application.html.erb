@@ -7,14 +7,12 @@
 
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_pack_tag 'application' %>
-  <%= javascript_pack_tag 'hello_vue' %>
 </head>
 
 <body>
   <%= yield %>
 
-  <div id='hello'>
-    {{message}}
+  <div id='app'>
     <app></app>
   </div>
 

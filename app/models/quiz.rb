@@ -1,5 +1,8 @@
 class Quiz
   include Mongoid::Document
+  store_in collection: 'quizzes'
 
-  field :title, type: String
+  has_many :categories, class_name: 'Category'
+
+  field :name, type: String
 end
