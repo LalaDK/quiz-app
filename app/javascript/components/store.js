@@ -9,40 +9,31 @@ const myPlugin = (store) => {
     {channel: 'ApplicationCable::QuizChannel' },
     {
       received(data) {
-        console.log(store.count)
-        if(data && data.count && data.count != store.count) {
-          store.commit('set', data.count);
+        if(data.id != store.getters.getGameData.id) {
+          store.commit('setGameData', data);
         }
-        //console.log("Data received:", data);
-        //store.commit('increment');
       }
     }
   )
 
   store.subscribe((mutation, state) => {
-    //console.log(state)
     quizChannel.send({ count: state.count })
   });
 }
 
 export default new Vuex.Store({
   state: {
-    count: 5
+    game: {},
   },
   mutations: {
-    increment(state) {
-      state.count++;
-    },
-    decrement(state) {
-      state.count--;
-    },
-    set(state, count) {
-      state.count = count;
+    ping(state) {},
+    setGameData(state, game) {
+      state.game = game;
     }
   },
   getters: {
-    getCount(state) {
-      return state.count;
+    getGameData(state) {
+      return state.game;
     }
   },
   plugins: [myPlugin]

@@ -5,8 +5,13 @@
     "@rails/actioncable": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.3.0",
+    "bootstrap": "^4.5.3",
+    "bootstrap-vue": "^2.20.1",
+    "popper.js": "^1.16.1",
+    "sugar": "^2.0.6",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.5",
+    "vue-router": "^3.4.9",
     "vue-template-compiler": "^2.6.12",
     "vuex": "^3.6.0"
   },

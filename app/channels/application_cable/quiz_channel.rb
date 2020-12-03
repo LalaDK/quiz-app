@@ -6,7 +6,7 @@ module ApplicationCable
     end
 
     def receive(data)
-      ActionCable.server.broadcast("stream", data)
+      ActionCable.server.broadcast("stream", Game.last)
     end
   end
 end
