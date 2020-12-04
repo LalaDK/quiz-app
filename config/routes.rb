@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  resources :quiz, controller: 'quiz', only: %i[index show update destroy] do
+    resources :category, controller: 'quiz/category', only: %i[show update destroy] do
+      resources :question, controller: 'quiz/category/question', only: %i[show update destroy]
+    end
+  end
   root to: 'home#index'
 end
