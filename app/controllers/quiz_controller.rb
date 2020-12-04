@@ -20,4 +20,17 @@ class QuizController < ApplicationController
       end
     end
   end
+
+  def destroy
+    respond_to do |format|
+      format.json do
+        quiz = Quiz.find(params[:id])
+        if quiz.destroy
+          render json: {}
+        else
+          raise
+        end
+      end
+    end
+  end
 end

@@ -12,7 +12,12 @@
         <tr v-for="quiz in quizzes" :key="quiz.id">
           <td>{{ quiz.name || '(Unavngivet)' }}</td>
           <td>
-            <router-link  :to="'/quiz/' + quiz.id">Vis</router-link>
+            <button type="button" class="btn btn-outline-primary" @click="edit(quiz.id)">
+              <b-icon-pencil /> Rediger
+            </button>
+            <button type="button" class="btn btn-outline-danger" @click="destroy(quiz.id)">
+              <b-icon-trash /> Slet
+            </button>
           </td>
         </tr>
       </tbody>
@@ -30,6 +35,15 @@ export default {
     }
   },
   methods: {
+    edit(quiz_id) {
+      this.$router.push('/quiz/' + quiz_id);
+
+    },
+    destroy(quiz_id) {
+      Quiz.delete({id: quiz_id}).then(() => {
+        this.query();
+      })
+    },
     query() {
       Quiz.query({}).then((response) => {
         this.quizzes = response;

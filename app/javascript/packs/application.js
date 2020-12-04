@@ -21,14 +21,18 @@ Vue.use(BootstrapVueIcons)
 
 import JoinGamePage from '../pages/join_game.vue'
 import QuizIndex from '../pages/quiz/index.vue'
-import QuizShow from '../pages/quiz/show.vue'
+import QuizEdit from '../pages/quiz/edit.vue'
+import CategoryEdit from '../pages/category/edit.vue'
+import QuestionEdit from '../pages/question/edit.vue'
 
 const router = new VueRouter(
   {
     routes: [
       { path: '/join', component: JoinGamePage },
       { path: '/quiz', component: QuizIndex },
-      { path: '/quiz/:id', component: QuizShow }
+      { path: '/quiz/:id', component: QuizEdit },
+      { path: '/quiz/:quiz_id/category/:id', component: CategoryEdit },
+      { path: '/quiz/:quiz_id/category/:category_id/question/:id', component: QuestionEdit }
     ]
   }
 );

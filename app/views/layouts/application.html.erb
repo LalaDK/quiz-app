@@ -11,12 +11,12 @@
 
 <body>
   <%= yield %>
-
+  <div class="container">
   <div id='app'>
     <router-link to="/join">Join game</router-link>
     <router-link to="/quiz">Quiz</router-link>
     <router-view></router-view>
   </div>
-
+</div>
 </body>
 </html>
