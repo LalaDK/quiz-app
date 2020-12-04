@@ -8,6 +8,20 @@ class QuizController < ApplicationController
     end
   end
 
+  def update
+    respond_to do |format|
+      format.json do
+        quiz = Quiz.find(params[:id])
+        quiz.attributes = params_permit
+        if quiz.save
+          render json: {}
+        else
+          raise
+        end
+      end
+    end
+  end
+
   def show
     respond_to do |format|
       format.json do
@@ -32,5 +46,9 @@ class QuizController < ApplicationController
         end
       end
     end
+  end
+
+  def params_permit
+    params.permit %i[name]
   end
 end

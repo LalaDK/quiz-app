@@ -5,13 +5,20 @@
     <b-icon-arrow-left /> Tilbage
   </button>
   <div class="center">
-    <h1 @click="editTitle = true" v-if="!editTitle">{{quiz.name || '(Unavngivet)'}}</h1>
-    <input v-if="editTitle" v-on:blur="editTitle = false" type="text" class="form-control" v-model="quiz.name" />
+    <h1 v-if="!editName">{{quiz.name || '(Unavngivet)'}}</h1>
 
-    <p class="no-title" v-if="!quiz.name && !editTitle">
-      Tryk for at redigere ... <b-icon-pencil/>
-    </p>
+    <div class="input-group" v-if="editName">
+      <input type="text" class="form-control" v-model="quiz.name" />
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" @click="save">Gem</button>
+      </div>
+    </div>
 
+    <div class="center" v-if="!editName">
+      <button slot="trigger" type="button" name="button" class="btn btn-outline-primary" @click="editName = true">
+        <b-icon-pencil /> Omdøb
+      </button>
+    </div>
 
     <div class="flex-container">
       <category-component v-for="category in quiz.categories" :key="category.id" :quiz_id="quiz.id" :id="category.id" />
@@ -30,7 +37,7 @@ export default {
   components: { CategoryComponent },
   data() {
     return {
-      editTitle: false,
+      editName: false,
       quiz: {
         name: ''
       }
@@ -42,21 +49,27 @@ export default {
     },
     addCategory() {
       Category.save({quiz_id: this.$route.params.id}).then(() => {
-        this.query();
+        this.get();
       });
     },
-    query() {
+    save() {
+      Quiz.update({id: this.$route.params.id}, this.quiz).then(() => {
+        this.editName = false;
+        this.get()
+      });
+    },
+    get() {
       Quiz.get({id: this.$route.params.id}).then((response) => {
         this.quiz = response;
       });
     }
   },
   created() {
-    this.query();
+    this.get();
   },
   watch: {
     $route(to, from) {
-      this.query();
+      this.get();
     }
   }
 }
@@ -79,11 +92,4 @@ h1 {
   font-family: 'Cherry Swash', cursive;
   text-align: center;
 }
-
-p.no-title {
-  font-family: 'Cherry Swash', cursive;
-  text-align: center;
-  font-style: italic;
-}
-
 </style>

@@ -38,6 +38,7 @@
         <h5 class="card-title">{{question.question}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{question.answer}}</h6>
         <p class="card-text">
+          <a :href="question.spotify_uri">Spotify</a>
         </p>
 
         <button type="button" name="button" class="btn btn-outline-primary" @click="editQuestion(question.id)">
