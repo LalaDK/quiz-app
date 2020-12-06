@@ -76,6 +76,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap');
+
 div.center {
   text-align: center;
 }
@@ -87,7 +89,6 @@ div.flex-container {
     justify-content: center;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap');
 h1 {
   font-family: 'Cherry Swash', cursive;
   text-align: center;

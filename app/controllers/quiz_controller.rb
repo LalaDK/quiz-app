@@ -8,6 +8,19 @@ class QuizController < ApplicationController
     end
   end
 
+  def create
+    respond_to do |format|
+      format.json do
+        quiz = Quiz.new
+        if quiz.save
+          render json: {}
+        else
+          raise
+        end
+      end
+    end
+  end
+
   def update
     respond_to do |format|
       format.json do

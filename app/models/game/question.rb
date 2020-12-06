@@ -6,6 +6,7 @@ class Game::Question
   field :reward, type: Integer, default: 100
   field :spotify_uri, type: String
   field :team_id, type: BSON::ObjectId
+  field :skipped, type: Boolean
 
   embedded_in :category, class_name: '::Game::Category'
 

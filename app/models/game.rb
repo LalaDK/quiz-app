@@ -3,6 +3,7 @@ class Game
   store_in collection: 'games'
   field :created_at, type: DateTime, default: DateTime.now
 
+  field :lock_game, type: Boolean
   field :pin_code, type: String
   field :quiz_name, type: String
   field :current_team_id, type: BSON::ObjectId
@@ -22,11 +23,26 @@ class Game
     end
   end
 
-  def add_team(name, color=nil)
-    teams << Game::Team.new(name: name, color: color, index: teams.count)
+  def start_game
+    self.lock_game = true
+    next_team
+  end
+
+  def questions_left
+    categories.map(&:questions).to_a.flatten.select do |question|
+      !question.skipped && question.team_id.blank?
+    end.count
+  end
+
+  def add_team(name, background_color=nil)
+    return if lock_game.true?
+
+    teams << Game::Team.new(name: name, background_color: background_color)
   end
 
   def remove_team(team_id)
+    return if lock_game.true?
+
     teams.find(team_id).destroy
   end
 
@@ -39,24 +55,31 @@ class Game
   def current_question
     return if self.current_question_id.nil?
 
-    categories.find do |category|
-      category.questions.find(self.current_question_id)
+    categories.map(&:questions).flatten.find do |question|
+      question.id == self.current_question_id
     end
   end
 
   def award_points(team_id)
-    return if current_question_id.nil?
+    if team_id.nil? || team_id == 'null'
+      skip_question()
+      return
+    end
 
     question = current_question()
     question.team_id = current_team_id
-    question.current_question_id = nil
+    question.save
+    self.current_question_id = nil
+    self.save
   end
 
   def skip_question
     return if current_question_id.nil?
 
     question = current_question()
+    question.team_id = nil
     question.skipped = true
+    question.save
   end
 
   def next_team
@@ -97,13 +120,13 @@ class Game
   end
 
   def ended
-    categories.map(&:questions).all? { |question| question.skipped || !question.team_id.blank? }
+    categories.map(&:questions).flatten.all? { |question| question.skipped || !question.team_id.blank? }
   end
 
   def load_quiz(quiz)
     self.quiz_name = quiz.name
     self.categories = quiz.categories.map do |c|
-      category = Game::Category.new(name: c.name)
+      category = Game::Category.new(name: c.name, background_color: c.background_color)
       category.questions = c.questions.map do |q|
         Game::Question.new(
           question: q.question,

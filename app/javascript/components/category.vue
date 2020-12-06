@@ -7,11 +7,9 @@
 
 <script>
 import { Category } from '../services'
-//import Question from './question'
 
 
 export default {
-  //components: { Question },
   data() {
     return {
       category: {
@@ -46,7 +44,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap');
 
 div.category {

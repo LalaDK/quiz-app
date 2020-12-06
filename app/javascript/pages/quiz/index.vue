@@ -22,6 +22,10 @@
         </tr>
       </tbody>
     </table>
+
+    <button type="button" class="btn btn-outline-primary" @click="create">
+      <b-icon-plus/> Tilføj quiz
+  </button>
   </div>
 </template>
 
@@ -35,9 +39,13 @@ export default {
     }
   },
   methods: {
+    create() {
+      Quiz.save({}).then(() => {
+        this.query();
+      })
+    },
     edit(quiz_id) {
       this.$router.push('/quiz/' + quiz_id);
-
     },
     destroy(quiz_id) {
       Quiz.delete({id: quiz_id}).then(() => {
