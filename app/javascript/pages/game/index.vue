@@ -11,10 +11,12 @@
       </thead>
       <tbody>
         <tr v-for="game in games" :key="game.id">
-          <td>{{ game }}</td>
+          <td>
+            {{ game.quiz_name }}
+          </td>
           <td>
             <button type="button" class="btn btn-outline-primary" @click="open(game.id)">
-              <b-icon-pencil /> Rediger
+              <b-icon-controller /> Vis
             </button>
             <button type="button" class="btn btn-outline-danger" @click="destroy(game.id)">
               <b-icon-trash /> Slet

@@ -1,42 +1,74 @@
 <template>
   <div>
-    <h1>Score board</h1>
-    {{game.score_board}}
-    <h1>Pin: {{game.pin_code}}</h1>
-    <teams-component v-if="game.id && !game.lock_game" :game_id="game.id" />
-
-    <button type="button" name="button" @click="startGame">Start game</button>
-    <h1>Nuværende team</h1>
-    <h1 v-if="game.current_team">
-      <span class="badge badge-primary" :style="{ backgroundColor: game.current_team.background_color }">{{game.current_team.name}}</span>
-    </h1>
-
-    <h1>Nuværende spørgsmål</h1>
-    <div class="card" v-if="game.current_question">
-      <div class="card-header">
-        {{game.current_question.question}}
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">{{game.current_question.answer}}</h5>
-        <a :href="game.current_question.spotify_uri" target="_blank">Spotify link</a><br>
-        Points: {{game.current_question.reward}}<br>
-        <b>Giv point til:</b><br>
-        <button type="button" class="btn btn-primary" @click="assignPointsTo(team.id)" v-for="team in game.teams" :style="{ backgroundColor: team.background_color }"> {{team.name}} </button>
-        <button type="button" class="btn btn-secondary" @click="assignPointsTo(null)">Ingen</button>
-      </div>
+    <div class="center">
+      <h3 class="score" v-for="score in game.score_board">
+        <span class="badge badge-primary" :style="{ backgroundColor: score.team.background_color }">
+          <b-icon-arrow-right v-if="score.team.id == game.current_team_id" />
+          {{score.team.name}} - {{score.points}} points
+          <b-icon-arrow-left v-if="score.team.id == game.current_team_id" />
+        </span>
+      </h3>
+      <br>
+      <span class="badge badge-primary">Pinkode: {{game.pin_code}} </span>
+      <span class="badge badge-secondary">{{game.questions_left}} spørgsmål tilbage </span>
     </div>
 
-    <h1>Spørgsmål</h1>
-    <div v-for="category in game.categories">
-      {{category}}
-      <div class="category" v-if="category.id" :style="{backgroundColor: category.background_color, color: category.font_color}">
-        <p class="title">{{category.name}}</p>
-      </div>
-        <div v-for="question in category.questions">
-          <button type="button" class="btn btn-primary" @click="openQuestion(question.id)">{{question.reward}} point</button>
+    <div v-if="game.id && !game.lock_game">
+      <teams-component :game_id="game.id" @input="get" />
+    <br>
+    <button type="button" class="center btn btn-primary" :disabled="(game.teams || []).length < 2" @click="startGame">Start game</button>
+    <br>
+    <div class="alert alert-primary" role="alert">
+      Tilføj minimum 2 hold for at starte spillet ...
+    </div>
+  </div>
+
+
+    <div v-if="game.current_question_id">
+      <div class="card" v-if="game.current_question">
+        <div class="card-header center">
+          {{game.current_question.question}}
         </div>
+        <div class="card-body center">
+          <h5 class="card-title">
+            <span v-if="game.show_answer">
+              {{game.current_question.answer}}
+            </span>
+          </h5>
+          <button type="button" class="btn btn-lg btn-primary" @click="showAnswer" v-if="!game.show_answer">Vis svar</button>
+          <a class="btn btn-lg btn-outline-success" :href="game.current_question.spotify_uri" target="_blank" v-if="game.current_question.spotify_uri">
+            <img height="20" src="https://www.flaticon.com/svg/static/icons/svg/2111/2111624.svg" alt="">
+            Spotify
+          </a>
+          <button type="button" class="btn btn-lg btn-outline-danger" @click="closeQuestion">Luk</button>
+          <br>
+          <b>Giv {{game.current_question.reward}} point til:</b><br>
+          <div class="btn-group center btn-group-lg" role="group" aria-label="...">
+            <button type="button" class="btn btn-primary" @click="assignPointsTo(team.id)" v-for="team in game.teams" :style="{ backgroundColor: team.background_color }"> {{team.name}} </button>
+            <button type="button" class="btn btn-secondary" @click="assignPointsTo(null)">Ingen</button>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div v-if="game.lock_game && !game.current_question_id">
+      <div class="card" v-for="category in game.categories" style="margin-bottom: 20px;">
+        <div class="card-header" :style="{backgroundColor: category.background_color, color: category.font_color}">
+          <h2 class="center">{{category.name}}</h2>
+        </div>
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action center" @click="openQuestion(question.id)" v-for="question in category.questions">
+            <h3>
+              <b-icon-square v-if="!question.team_id && !question.skipped" />
+              <b-icon-check-square v-if="question.team_id" />
+              <b-icon-dash-square v-if="question.skipped" />
+              {{question.reward}} points
+            </h3>
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script type="text/javascript">
@@ -52,6 +84,17 @@ export default {
     }
   },
   methods: {
+    showAnswer() {
+      Axios({
+        method: 'put',
+        url: '/game/' + this.game.id + '/show_answer',
+        headers: {
+          "X-CSRF-Token": document.querySelector('meta[name=csrf-token]').content
+        }
+      }).then(() => {
+        this.get()
+      });
+    },
     closeQuestion(question_id) {
       Axios({
         method: 'put',
@@ -114,30 +157,23 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap');
 
-div.category {
-  width: 350px;
-  margin: 20px;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 5px 10px 18px #888888;
-  transition: all ease 200ms;
-}
-
-div.category:hover {
-  transform: scale(1.1);
-  transition: all ease 200ms;
-}
-
-p {
+h3 {
   text-align: center;
-  font-family: 'Cherry Swash', cursive;
 }
 
-p.title {
-  font-weight: bold;
-  font-size: 22pt;
+div.card-header {
+  font-family: 'Cherry Swash', cursive;
+  text-align: center;
+}
+
+h2.score {
+  display: inline-block;
+  margin: 5px;
+}
+
+div.center, span.center {
+  text-align: center;
 }
 </style>

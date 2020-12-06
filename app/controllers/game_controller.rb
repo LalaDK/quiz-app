@@ -38,6 +38,20 @@ class GameController < ApplicationController
     end
   end
 
+  def show_answer
+    respond_to do |format|
+      format.any do
+        game = Game.find(params[:game_id])
+        game.show_answer = true
+        if game.save
+          render json: {}
+        else
+          raise
+        end
+      end
+    end
+  end
+
   def start_game
     respond_to do |format|
       format.any do
@@ -51,7 +65,6 @@ class GameController < ApplicationController
       end
     end
   end
-
 
   def open_question
     respond_to do |format|
@@ -72,6 +85,7 @@ class GameController < ApplicationController
       format.any do
         game = Game.find(params[:game_id])
         game.current_question_id = nil
+        game.show_answer = nil
         if game.save
           render json: {}
         else

@@ -57,6 +57,7 @@ export default {
   methods: {
     destroy(team_id) {
       Team.delete({game_id: this.game_id, id: team_id}).then(() => {
+        this.$emit('input', this.teams);
         this.query();
       })
     },
@@ -66,6 +67,7 @@ export default {
         background_color: this.background_color
       };
       Team.save({game_id: this.game_id}, data).then(() => {
+        this.$emit('input', this.teams);
         this.query();
       })
     },

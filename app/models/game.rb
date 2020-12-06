@@ -6,6 +6,7 @@ class Game
   field :lock_game, type: Boolean
   field :pin_code, type: String
   field :quiz_name, type: String
+  field :show_answer, type: Boolean
   field :current_team_id, type: BSON::ObjectId
   field :current_question_id, type: BSON::ObjectId
 
@@ -35,7 +36,7 @@ class Game
   end
 
   def add_team(name, background_color=nil)
-    return if lock_game.true?
+    return if lock_game
 
     teams << Game::Team.new(name: name, background_color: background_color)
   end
@@ -63,14 +64,18 @@ class Game
   def award_points(team_id)
     if team_id.nil? || team_id == 'null'
       skip_question()
+      next_team
       return
     end
 
     question = current_question()
-    question.team_id = current_team_id
+    question.team_id = team_id
+    question.skipped = nil
     question.save
     self.current_question_id = nil
+    self.show_answer = false
     self.save
+    next_team
   end
 
   def skip_question
@@ -80,6 +85,9 @@ class Game
     question.team_id = nil
     question.skipped = true
     question.save
+    self.current_question_id = nil
+    self.show_answer = false
+    self.save
   end
 
   def next_team
@@ -87,6 +95,7 @@ class Game
 
     if current_team_id.nil?
       self.current_team_id = teams.first.id
+      self.save
       return
     end
 
@@ -107,7 +116,7 @@ class Game
     count = 0
     categories.each do |category|
       category.questions.each do |question|
-        count += 1 if question.team_id == team_id
+        count += question.reward if question.team_id == team_id
       end
     end
     count
@@ -115,7 +124,7 @@ class Game
 
   def score_board
     teams.map do |team|
-      {name: team.name, points: points_by_team_id(team.id)}
+      {team: team, points: points_by_team_id(team.id)}
     end
   end
 
