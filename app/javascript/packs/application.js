@@ -9,8 +9,6 @@ Sugar.extend();
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-
 
 import Game from '../components/game.vue'
 
@@ -19,7 +17,7 @@ Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
-import JoinGamePage from '../pages/join_game.vue'
+import ViewerShow from '../pages/viewer/show.vue'
 import QuizIndex from '../pages/quiz/index.vue'
 import QuizEdit from '../pages/quiz/edit.vue'
 import CategoryEdit from '../pages/category/edit.vue'
@@ -30,7 +28,7 @@ import GameShow from '../pages/game/show.vue'
 const router = new VueRouter(
   {
     routes: [
-      { path: '/join', component: JoinGamePage },
+      { path: '/join', component: ViewerShow },
       { path: '/quiz', component: QuizIndex },
       { path: '/game', component: GameIndex },
       { path: '/game/:id', component: GameShow },
@@ -41,12 +39,9 @@ const router = new VueRouter(
   }
 );
 
-import store from '../components/store'
-
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     router,
-    store,
     el: '#app',
     data: {},
     components: { }

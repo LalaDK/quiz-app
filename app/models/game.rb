@@ -24,6 +24,10 @@ class Game
     end
   end
 
+  after_save do
+    ActionCable.server.broadcast(self.id, self)
+  end
+
   def start_game
     self.lock_game = true
     next_team

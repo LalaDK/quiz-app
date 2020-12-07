@@ -6,14 +6,14 @@
       <thead class="thead-dark">
         <tr>
           <th>Navn</th>
+          <th>PIN-kode</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="game in games" :key="game.id">
-          <td>
-            {{ game.quiz_name }}
-          </td>
+          <td> {{ game.quiz_name }} </td>
+          <td> {{ game.pin_code }} </td>
           <td>
             <button type="button" class="btn btn-outline-primary" @click="open(game.id)">
               <b-icon-controller /> Vis
