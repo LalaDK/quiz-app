@@ -1,7 +1,7 @@
 <template lang="html">
 
   <div id="main">
-    <div class="center">
+    <div class="center" style="position: relative; z-index: 1000;">
       <div class="input-group" v-if="!connected">
         <input type="text" v-model="pin_code" placeholder="PIN-kode" class="form-horizontal">
         <div class="input-group-append">
