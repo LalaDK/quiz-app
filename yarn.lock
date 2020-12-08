@@ -7460,6 +7460,11 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
+vue-confetti@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/vue-confetti/-/vue-confetti-2.2.1.tgz#5cc5f96c43a7fe2b0a831bb2cf04473c1f65b017"
+  integrity sha512-yWDb21phC9jQtdjBi9r40UCTnBG1IEu9VuZUaoTSlDao4RwRJEb+rCKa5qWUkzwGZViwJGguEWFWCw9I2V/bQw==
+
 vue-functional-data-merge@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-3.1.0.tgz#08a7797583b7f35680587f8a1d51d729aa1dc657"

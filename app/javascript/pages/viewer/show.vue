@@ -7,7 +7,11 @@
         <button class="btn btn-outline-primary" type="button" @click="joinGame">Deltag</button>
       </div>
     </div>
-    <button class="btn btn-sm btn-outline-danger" v-if="connected" @click="disconnect">Afbrud</button>
+    <div class="pull-right" style="z-index: 1000;">
+      <button id="disconnect-btn" class="btn btn-dark pull-right" v-if="connected" @click="disconnect">
+        <b-icon-x />
+      </button>
+    </div>
 
     <div class="category-container">
       <div v-for="category in game.categories" :key="category.id" class="question-container" >
@@ -22,7 +26,8 @@
 
     <div v-if="game.current_question_id" class="question-modal">
       <div class="modal-content">
-        <p>Some text in the Modal..</p>
+        <span class="question">{{game.current_question.question}}</span>
+        <span class="answer" v-if="game.show_answer">{{game.current_question.answer}}</span>
       </div>
     </div>
 
@@ -46,6 +51,7 @@ require("@rails/ujs").start()
 require("channels")
 
 import consumer from "channels/consumer"
+
 window.quizChannel;
 
 export default {
@@ -87,12 +93,34 @@ export default {
   },
   created() {
     this.joinGame();
+  },
+  watch() {
+    game(newValue, oldValue) {
+      console.log("WATCHED!")
+      if(newValue.show_answer) {
+        this.$confetti.start({
+          particles: [
+            {
+              type: 'rect',
+            }
+          ]
+        });
+      }
+    }
   }
 }
 </script>
 
 <style lang="css" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap');
+
+#disconnect-btn {
+  border-radius: 0px 0px 0px 0.25em;
+}
+
+.pull-right {
+  text-align: right;
+}
 
 div.category {
   z-index: 100;
@@ -129,7 +157,7 @@ p.question {
 
 .question-modal {
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1000; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
@@ -142,11 +170,25 @@ p.question {
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  text-align: center;
+  color: white;
+  background-color: #737373;
   margin: auto;
-  padding: 20px;
+  padding: 50px;
   border: 1px solid #888;
   width: 80%;
+  height: 80%;
+}
+
+div.modal-content span.question {
+  font-size: 3vw;
+  font-family: 'Cherry Swash', cursive;
+}
+
+div.modal-content span.answer {
+  font-family: 'Cherry Swash', cursive;
+  font-size: 4vw;
+  text-decoration: underline;
 }
 
 div.category-container {

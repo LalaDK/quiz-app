@@ -27,6 +27,7 @@ import GameShow from '../pages/game/show.vue'
 const router = new VueRouter(
   {
     routes: [
+      { path: '/', component: QuizIndex },
       { path: '/quiz', component: QuizIndex },
       { path: '/game', component: GameIndex },
       { path: '/game/:id', component: GameShow },
