@@ -25,7 +25,7 @@ class Game
   end
 
   after_save do
-    ActionCable.server.broadcast(self.id, self)
+    ActionCable.server.broadcast(self.id, self.json)
   end
 
   def start_game
@@ -134,6 +134,17 @@ class Game
 
   def ended
     categories.map(&:questions).flatten.all? { |question| question.skipped || !question.team_id.blank? }
+  end
+
+  def json
+    self.as_json(
+      include: {
+        categories: {
+          methods: :font_color
+        }
+      },
+      methods: %i[current_question current_team score_board ended questions_left]
+    )
   end
 
   def load_quiz(quiz)

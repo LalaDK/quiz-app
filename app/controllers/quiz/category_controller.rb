@@ -1,4 +1,4 @@
-class Quiz::CategoryController < ApplicationController
+class Quiz::CategoryController < AdminApplicationController
 
   def show
     respond_to do |format|

@@ -15,5 +15,6 @@ Rails.application.routes.draw do
       resources :question, controller: 'quiz/category/question', only: %i[create show update destroy]
     end
   end
-  root to: 'home#index'
+  get 'admin', to: 'admin#index'
+  root to: 'viewer#index'
 end

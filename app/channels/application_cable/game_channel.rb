@@ -7,7 +7,7 @@ module ApplicationCable
         reject
       else
         stream_from game.id
-        ActionCable.server.broadcast(game.id, game)
+        ActionCable.server.broadcast(game.id, game.json)
       end
     end
 

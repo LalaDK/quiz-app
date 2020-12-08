@@ -1,4 +1,4 @@
-class QuizController < ApplicationController
+class QuizController < AdminApplicationController
 
   def index
     respond_to do |format|

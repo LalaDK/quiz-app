@@ -17,7 +17,6 @@ Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
-import ViewerShow from '../pages/viewer/show.vue'
 import QuizIndex from '../pages/quiz/index.vue'
 import QuizEdit from '../pages/quiz/edit.vue'
 import CategoryEdit from '../pages/category/edit.vue'
@@ -28,7 +27,6 @@ import GameShow from '../pages/game/show.vue'
 const router = new VueRouter(
   {
     routes: [
-      { path: '/join', component: ViewerShow },
       { path: '/quiz', component: QuizIndex },
       { path: '/game', component: GameIndex },
       { path: '/game/:id', component: GameShow },

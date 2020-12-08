@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_pack_tag 'viewer_application' %>
+  <%= javascript_pack_tag 'viewer_application' %>
+</head>
+
+<body>
+  <%= yield %>
+  <div id='app'>
+    <div class="container">
+    </div>
+  </div>
+</body>
+</html>

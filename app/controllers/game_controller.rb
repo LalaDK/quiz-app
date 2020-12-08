@@ -1,4 +1,4 @@
-class GameController < ApplicationController
+class GameController < AdminApplicationController
 
   def index
     respond_to do |format|

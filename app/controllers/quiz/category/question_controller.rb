@@ -1,4 +1,4 @@
-class Quiz::Category::QuestionController < ApplicationController
+class Quiz::Category::QuestionController < AdminApplicationController
 
   def create
     respond_to do |format|
