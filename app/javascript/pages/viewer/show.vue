@@ -1,16 +1,26 @@
 <template lang="html">
 
   <div id="main">
-    <div class="input-group" v-if="!connected">
-      <input type="text" v-model="pin_code" class="form-horizontal">
-      <div class="input-group-append">
-        <button class="btn btn-outline-primary" type="button" @click="joinGame">Deltag</button>
+    <div class="center">
+      <div class="input-group" v-if="!connected">
+        <input type="text" v-model="pin_code" placeholder="PIN-kode" class="form-horizontal">
+        <div class="input-group-append">
+          <button class="btn btn-lg btn-primary" type="button" @click="joinGame">Deltag</button>
+        </div>
       </div>
     </div>
+
     <div class="pull-right" style="z-index: 1000;">
-      <button id="disconnect-btn" class="btn btn-dark pull-right" v-if="connected" @click="disconnect">
+      <button id="disconnect-btn" class="btn btn-lg btn-dark pull-right" v-if="connected" @click="disconnect">
         <b-icon-x />
       </button>
+    </div>
+
+    <div class="score-container">
+      <div v-for="score in game.score_board">
+        <h1><span class="badge badge-primary" :style="{backgroundColor: score.team.background_color, color: score.team.font_color}">{{score.team.name}}</span></h1>
+        <div class="score">{{score.points}} point</div>
+      </div>
     </div>
 
     <div class="category-container">
@@ -18,7 +28,7 @@
         <div class="category" :style="{backgroundColor: category.background_color, color: category.font_color}">
           <p class="title">{{category.name}}</p>
         </div>
-        <div v-for="question in category.questions" class="question">
+        <div v-for="question in category.questions" class="question" :style="questionStyle(question)">
           <p class="question">{{question.reward}} point</p>
         </div>
       </div>
@@ -60,10 +70,20 @@ export default {
       game: {},
       connected: false,
       channel: {},
-      pin_code: '2823'
+      pin_code: ''
     }
   },
   methods: {
+    questionStyle(question) {
+      let team = this.game.teams.filter((team) => {
+        return team.id == question.team_id;
+      })[0]
+      if(team) {
+        return "background-color: " + team.background_color + ";";
+      } else {
+        return ""
+      }
+    },
     disconnect() {
       consumer.disconnect();
       this.game = {};
@@ -91,20 +111,12 @@ export default {
       );
     }
   },
-  created() {
-    this.joinGame();
-  },
-  watch() {
-    game(newValue, oldValue) {
-      console.log("WATCHED!")
+  watch: {
+    game: function(newValue, oldValue) {
       if(newValue.show_answer) {
-        this.$confetti.start({
-          particles: [
-            {
-              type: 'rect',
-            }
-          ]
-        });
+        this.$confetti.start({ particles: [ { type: 'rect' } ] });
+      } else {
+        this.$confetti.stop()
       }
     }
   }
@@ -114,12 +126,31 @@ export default {
 <style lang="css" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap');
 
+div.score-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+h1 {
+  display: inline-block;
+  margin: 10px;
+}
+
 #disconnect-btn {
   border-radius: 0px 0px 0px 0.25em;
 }
 
 .pull-right {
+  position: relative;
   text-align: right;
+}
+
+div.score {
+  text-align: center;
+  font-size: 16pt;
+  font-weight: bold;
+  color: white;
 }
 
 div.category {
