@@ -13,15 +13,16 @@ gem 'mongoid', '~> 7.0.5'
 gem 'mongoid-paperclip'
 gem 'redis'
 
-group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-end
-
 group :development do
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano-rails", "~> 1.3", require: false
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
+  gem 'rvm-capistrano'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
