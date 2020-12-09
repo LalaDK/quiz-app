@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  mount Dashboard::Ezmetrics, at: "/dashboard", as: "dashboard"
 
   resources :game, controller: 'game', only: %i[index create show update destroy] do
     put 'show_answer', controller: 'game', action: 'show_answer'

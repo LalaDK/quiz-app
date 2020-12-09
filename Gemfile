@@ -9,7 +9,6 @@ gem 'jbuilder', '~> 2.7'
 gem 'mongoid', '~> 7.0.5'
 gem 'mongoid-paperclip'
 gem 'redis'
-gem 'ezmetrics'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
