@@ -8,10 +8,10 @@ gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 gem 'jbuilder', '~> 2.7'
-gem 'bootsnap', '>= 1.4.2', require: false
 gem 'mongoid', '~> 7.0.5'
 gem 'mongoid-paperclip'
 gem 'redis'
+gem 'ezmetrics'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
