@@ -6,7 +6,7 @@ development:
         - localhost:27017
       options:
   options:
-development:
+production:
   clients:
     default:
       database: quiz_app
