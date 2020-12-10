@@ -1,46 +1,5 @@
-<template lang="html">
-
-  <div id="main">
-    <div class="center" style="position: relative; z-index: 1000;">
-      <div class="input-group" v-if="!connected">
-        <input type="text" v-model="pin_code" placeholder="PIN-kode" class="form-horizontal">
-        <div class="input-group-append">
-          <button class="btn btn-lg btn-primary" type="button" @click="joinGame">Deltag</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pull-right" style="z-index: 1000;">
-      <button id="disconnect-btn" class="btn btn-lg btn-dark pull-right" v-if="connected" @click="disconnect">
-        <b-icon-x />
-      </button>
-    </div>
-
-    <div class="score-container">
-      <div v-for="score in game.score_board">
-        <h1><span class="badge badge-primary" :style="{backgroundColor: score.team.background_color, color: score.team.font_color}">{{score.team.name}}</span></h1>
-        <div class="score">{{score.points}} point</div>
-      </div>
-    </div>
-
-    <div class="category-container">
-      <div v-for="category in game.categories" :key="category.id" class="question-container" >
-        <div class="category" :style="{backgroundColor: category.background_color, color: category.font_color}">
-          <p class="title">{{category.name}}</p>
-        </div>
-        <div v-for="question in category.questions" class="question" :style="questionStyle(question)">
-          <p class="question">{{question.reward}} point</p>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="game.current_question_id" class="question-modal">
-      <div class="modal-content">
-        <span class="question">{{game.current_question.question}}</span>
-        <span class="answer" v-if="game.show_answer">{{game.current_question.answer}}</span>
-      </div>
-    </div>
-
+'<template lang="html">
+  <div>
     <ul class="circles">
       <li></li>
       <li></li>
@@ -53,7 +12,51 @@
       <li></li>
       <li></li>
     </ul>
-  </div>
+
+      <div class="mx-auto" style="width: 300px; margin-top: 20%;" v-if="!connected">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" id="pin-code" v-model="pin_code" placeholder="PIN-kode" class="form-control form-control-lg" autofocus>
+            <div class="input-group-append">
+              <button class="btn btn-lg btn-primary" type="button" @click="joinGame">Vis</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+      <div class="pull-right">
+        <button id="disconnect-btn" class="btn btn-lg btn-dark pull-right" v-if="connected" @click="disconnect">
+          <b-icon-x />
+        </button>
+      </div>
+
+      <div class="score-container">
+        <div v-for="score in game.score_board">
+          <h1><span class="badge badge-primary" :style="{backgroundColor: score.team.background_color, color: score.team.font_color}">{{score.team.name}}</span></h1>
+          <div class="score">{{score.points}} point</div>
+        </div>
+      </div>
+
+      <div class="category-container">
+        <div v-for="category in game.categories" :key="category.id" class="question-container" >
+          <div class="category" :style="{backgroundColor: category.background_color, color: category.font_color}">
+            <p class="title">{{category.name}}</p>
+          </div>
+          <div v-for="question in category.questions" class="question" :style="questionStyle(question)">
+            <p class="question">{{question.reward}} point</p>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="game.current_question_id" class="question-modal">
+        <div class="modal-content">
+          <span class="question">{{game.current_question.question}}</span>
+          <span class="answer" v-if="game.show_answer">{{game.current_question.answer}}</span>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -123,8 +126,15 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+button, #pin-code {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-weight: bold;
+}
 
 div.score-container {
   display: flex;
@@ -154,7 +164,6 @@ div.score {
 }
 
 div.category {
-  z-index: 100;
   text-align: center;
   margin: 20px;
   border-radius: 10px;
@@ -223,7 +232,6 @@ div.modal-content span.answer {
 }
 
 div.category-container {
-  z-index: 100;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -239,7 +247,7 @@ div.question-container {
   justify-content: flex-start;
 }
 
-div#main {
+body {
   background: #6f6f6f;
   background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
   width: 100%;
@@ -358,3 +366,4 @@ div#main {
   }
 }
 </style>
+'
