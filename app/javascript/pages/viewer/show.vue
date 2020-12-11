@@ -1,4 +1,4 @@
-'<template lang="html">
+<template lang="html">
   <div>
     <ul class="circles">
       <li></li>
