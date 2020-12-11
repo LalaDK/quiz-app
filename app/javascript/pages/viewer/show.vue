@@ -13,8 +13,8 @@
       <li></li>
     </ul>
 
-      <div class="mx-auto" style="width: 300px; margin-top: 20%;" v-if="!connected">
-      <form>
+      <div class="mx-auto logo" style="width: 300px; margin-top: 40vmin; box-shadow: #3c3c3c 5px 5px 30px;" v-if="!connected">
+      <form @submit.prevent="joinGame">
         <div class="form-group">
           <div class="input-group">
             <input type="text" id="pin-code" v-model="pin_code" placeholder="PIN-kode" class="form-control form-control-lg" autofocus>
@@ -130,10 +130,24 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 
+.logo::before {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  content: "Quizzy";
+  font-size: 25vmin;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  color: #d2d2d2;
+  text-shadow: 5px 5px 30px black;
+}
+
 button, #pin-code {
   font-family: 'Montserrat', sans-serif;
   text-align: center;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 div.score-container {

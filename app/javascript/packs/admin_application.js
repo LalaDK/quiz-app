@@ -17,19 +17,16 @@ Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
-import QuizIndex from '../pages/quiz/index.vue'
 import QuizEdit from '../pages/quiz/edit.vue'
 import CategoryEdit from '../pages/category/edit.vue'
 import QuestionEdit from '../pages/question/edit.vue'
-import GameIndex from '../pages/game/index.vue'
 import GameShow from '../pages/game/show.vue'
+import AdminIndex from '../pages/admin/index.vue'
 
 const router = new VueRouter(
   {
     routes: [
-      { path: '/', component: QuizIndex },
-      { path: '/quiz', component: QuizIndex },
-      { path: '/game', component: GameIndex },
+      { path: '/', component: AdminIndex },
       { path: '/game/:id', component: GameShow },
       { path: '/quiz/:id', component: QuizEdit },
       { path: '/quiz/:quiz_id/category/:id', component: CategoryEdit },

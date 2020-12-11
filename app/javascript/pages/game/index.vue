@@ -1,7 +1,5 @@
 <template>
   <div>
-
-    <h1>Igangværende spil</h1>
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
@@ -13,7 +11,7 @@
       <tbody>
         <tr v-for="game in games" :key="game.id">
           <td> {{ game.quiz_name }} </td>
-          <td> {{ game.pin_code }} </td>
+          <td> <b>{{ game.pin_code }}</b> </td>
           <td>
             <button type="button" class="btn btn-outline-primary" @click="open(game.id)">
               <b-icon-controller /> Vis
@@ -34,7 +32,7 @@
   </select>
   <div class="input-group-append">
     <button type="button" class="btn btn-outline-primary" @click="create" :disabled="!quiz_id">
-      <b-icon-controller/> Start spil
+      <b-icon-controller/> Opret spil
     </button>
   </div>
 </div>

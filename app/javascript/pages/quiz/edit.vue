@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push('/quiz');
+      this.$router.push('/');
     },
     addCategory() {
       Category.save({quiz_id: this.$route.params.id}).then(() => {

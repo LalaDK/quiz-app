@@ -1,6 +1,5 @@
 <template lang="html">
   <div>
-    <h1>Quizzes</h1>
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
@@ -22,10 +21,9 @@
         </tr>
       </tbody>
     </table>
-
     <button type="button" class="btn btn-outline-primary" @click="create">
       <b-icon-plus/> Tilføj quiz
-  </button>
+    </button>
   </div>
 </template>
 
