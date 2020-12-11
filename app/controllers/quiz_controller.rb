@@ -3,7 +3,7 @@ class QuizController < AdminApplicationController
   def index
     respond_to do |format|
       format.json do
-        render json: Quiz.all
+        render json: Quiz.where(user: current_user).all
       end
     end
   end
@@ -12,6 +12,7 @@ class QuizController < AdminApplicationController
     respond_to do |format|
       format.json do
         quiz = Quiz.new
+        quiz.user = current_user
         if quiz.save
           render json: {}
         else

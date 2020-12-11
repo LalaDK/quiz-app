@@ -16,8 +16,9 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap');
+
 h1 {
   text-align: center;
   font-family: 'Cherry Swash', cursive;

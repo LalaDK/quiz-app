@@ -9,6 +9,7 @@ class Game
   field :show_answer, type: Boolean
   field :current_team_id, type: BSON::ObjectId
   field :current_question_id, type: BSON::ObjectId
+  belongs_to :user, class_name: 'User'
 
   embeds_many :teams, class_name: '::Game::Team', cascade_callbacks: true
   embeds_many :categories, class_name: '::Game::Category', cascade_callbacks: true

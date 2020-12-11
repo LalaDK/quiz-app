@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <table class="table table-bordered table-striped">
+    <table class="table table-light">
       <thead class="thead-dark">
         <tr>
           <th>Navn</th>
@@ -11,17 +11,17 @@
         <tr v-for="quiz in quizzes" :key="quiz.id">
           <td>{{ quiz.name || '(Unavngivet)' }}</td>
           <td>
-            <button type="button" class="btn btn-outline-primary" @click="edit(quiz.id)">
+            <button type="button" class="btn btn-primary" @click="edit(quiz.id)">
               <b-icon-pencil /> Rediger
             </button>
-            <button type="button" class="btn btn-outline-danger" @click="destroy(quiz.id)">
+            <button type="button" class="btn btn-danger" @click="destroy(quiz.id)">
               <b-icon-trash /> Slet
             </button>
           </td>
         </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-outline-primary" @click="create">
+    <button type="button" class="btn btn-primary" @click="create">
       <b-icon-plus/> Tilføj quiz
     </button>
   </div>

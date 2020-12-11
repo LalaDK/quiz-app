@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quiz Presenter</title>
+  <title>Quizzy.dk</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <%= stylesheet_link_tag 'application' %>
   <%= stylesheet_pack_tag 'admin_application' %>
   <%= javascript_pack_tag 'admin_application' %>
 </head>
 
 <body>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
   <%= yield %>
   <div id='app'>
     <div class="container">

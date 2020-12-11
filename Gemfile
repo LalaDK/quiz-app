@@ -9,6 +9,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'mongoid', '~> 7.0.5'
 gem 'mongoid-paperclip'
 gem 'redis'
+gem 'devise'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
@@ -21,5 +22,3 @@ group :development do
   gem 'rvm-capistrano'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
-
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

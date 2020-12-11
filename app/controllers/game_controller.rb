@@ -3,7 +3,7 @@ class GameController < AdminApplicationController
   def index
     respond_to do |format|
       format.json do
-        render json: Game.all
+        render json: Game.where(user: current_user).all
       end
     end
   end
@@ -12,6 +12,7 @@ class GameController < AdminApplicationController
     respond_to do |format|
       format.json do
         game = Game.new
+        game.user = current_user
         quiz = Quiz.find(params[:quiz_id])
         game.load_quiz(quiz)
         if game.save

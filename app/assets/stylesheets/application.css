@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+html, body {
+  height: 100%;
+}
+
+ body {
+   background: linear-gradient(to bottom, black, red);
+ }
+
+ #confetti-canvas {
+   z-index: 1000;
+ }
+
+ h1, h2, h3, h4, h5, h6 {
+   color: #d2d2d2;
+ }

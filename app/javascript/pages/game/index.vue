@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table table-bordered table-striped">
+    <table class="table table-light table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
           <th>Navn</th>
@@ -13,12 +13,12 @@
           <td> {{ game.quiz_name }} </td>
           <td> <b>{{ game.pin_code }}</b> </td>
           <td>
-            <button type="button" class="btn btn-outline-primary" @click="open(game.id)">
-              <b-icon-controller /> Vis
-            </button>
-            <button type="button" class="btn btn-outline-danger" @click="destroy(game.id)">
-              <b-icon-trash /> Slet
-            </button>
+              <button type="button" class="btn btn-primary" @click="open(game.id)">
+                <b-icon-controller /> Vis
+              </button>
+              <button type="button" class="btn btn-danger" @click="destroy(game.id)">
+                <b-icon-trash /> Slet
+              </button>
           </td>
         </tr>
       </tbody>
@@ -31,7 +31,7 @@
     </option>
   </select>
   <div class="input-group-append">
-    <button type="button" class="btn btn-outline-primary" @click="create" :disabled="!quiz_id">
+    <button type="button" class="btn btn-primary" @click="create" :disabled="!quiz_id">
       <b-icon-controller/> Opret spil
     </button>
   </div>
