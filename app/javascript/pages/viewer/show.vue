@@ -1,8 +1,8 @@
 <template lang="html">
   <div>
-
+    <div class="logo" v-if="!connected"></div>
     <div class="row" v-if="!connected">
-      <div class="offset-lg-4 col-lg-4 offset-md-4 col-md-4">
+      <div class="offset-lg-4 col-lg-4 offset-md-4 col-md-4" id="join-game-container">
         <form @submit.prevent="joinGame">
           <div class="form-group">
             <div class="input-group">
@@ -116,8 +116,11 @@ export default {
 </script>
 
 <style lang="css">
-.logo::before {
+#join-game-container {
   top: 40vmin;
+}
+
+div.logo::after {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   content: "Quizzy";
