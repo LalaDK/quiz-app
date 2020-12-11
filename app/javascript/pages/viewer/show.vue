@@ -57,15 +57,12 @@ window.quizChannel;
 
 export default {
   components: { Background, Modal },
-  created() {
-    this.joinGame();
-  },
   data() {
     return {
       game: {},
       connected: false,
       channel: {},
-      pin_code: '2823'
+      pin_code: ''
     }
   },
   methods: {
