@@ -18,10 +18,6 @@ html, body {
   height: 100%;
 }
 
- body {
-   background: linear-gradient(to bottom, black, red);
- }
-
  #confetti-canvas {
    z-index: 1000;
  }

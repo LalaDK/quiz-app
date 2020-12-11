@@ -7,6 +7,6 @@ class Question
   field :question, type: String
   field :answer, type: String
   field :reward, type: Integer, default: 100
-  field :spotify_uri, type: String
+  field :links, type: Object # {url: '...', name: '...'}
   field :skipped, type: Boolean
 end

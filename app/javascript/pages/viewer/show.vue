@@ -20,6 +20,10 @@
         <b-icon-x />
       </button>
 
+      <button id="disconnect-btn" class="btn btn-lg btn-dark pull-right" v-if="!connected" @click="goToAdmin">
+        <b-icon-person-circle/> Log ind
+      </button>
+
     <div class="score-container">
       <div v-for="score in game.score_board">
         <h1><span class="badge badge-primary" :style="{backgroundColor: score.team.background_color, color: score.team.font_color}">{{score.team.name}}</span></h1>
@@ -66,6 +70,9 @@ export default {
     }
   },
   methods: {
+    goToAdmin() {
+      window.location.href = '/admin';
+    },
     questionStyle(question) {
       let team = this.game.teams.filter((team) => {
         return team.id == question.team_id;
