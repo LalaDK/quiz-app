@@ -21,7 +21,7 @@
       </button>
 
       <button id="disconnect-btn" class="btn btn-lg btn-dark pull-right" v-if="!connected" @click="goToAdmin">
-        <b-icon-person-circle/> Log ind
+        <b-icon-person-circle/> Min side
       </button>
 
     <div class="score-container">
@@ -125,20 +125,6 @@ export default {
 <style lang="css">
 #join-game-container {
   top: 40vmin;
-}
-
-div.logo::after {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-  content: "Quizzy";
-  font-size: 20vmin;
-  position: fixed;
-  text-align: center;
-  width: 100%;
-  top: 0;
-  left: 0;
-  color: #d2d2d2;
-  text-shadow: 5px 5px 30px black;
 }
 
 button, #pin-code {

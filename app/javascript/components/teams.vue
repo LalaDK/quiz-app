@@ -18,7 +18,7 @@
             </h1>
           </td>
           <td>
-            <button type="button" class="btn btn-outline-danger" @click="destroy(team.id)">
+            <button type="button" class="btn btn-danger" @click="destroy(team.id)">
               <b-icon-trash /> Slet
             </button>
           </td>
@@ -30,11 +30,11 @@
       <input type="text" class="form-control" v-model="name" placeholder="Holdnavn">
       <div class="input-group-append" id="button-addon4">
         <v-swatches v-model="background_color">
-          <button slot="trigger" type="button" name="button" class="btn btn-outline-primary">
+          <button slot="trigger" type="button" name="button" class="btn btn-primary">
             <b-icon-brush /> Farve
           </button>
         </v-swatches>
-        <button class="btn btn-outline-secondary" type="button" @click="create" :disabled="!name && !background_color">Gem</button>
+        <button class="btn btn-secondary" type="button" @click="create" :disabled="!name && !background_color">Gem</button>
       </div>
     </div>
 

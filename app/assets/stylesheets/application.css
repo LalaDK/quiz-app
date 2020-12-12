@@ -25,3 +25,27 @@ html, body {
  h1, h2, h3, h4, h5, h6 {
    color: #d2d2d2;
  }
+
+.norows {
+  text-align: center;
+  font-style: italic;
+}
+
+div.logo::after {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  content: "Quizzy";
+  font-size: 20vmin;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  color: #d2d2d2;
+  text-shadow: 5px 5px 30px black;
+  margin-top: 36px;
+}
+
+.td-toolbar {
+  text-align: right;
+}

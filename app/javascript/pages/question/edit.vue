@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    <button type="button" class="btn btn-outline-primary" @click="goBack">
+    <button type="button" class="btn btn-primary" @click="goBack">
       <b-icon-arrow-left /> Tilbage
     </button>
     <form>
@@ -24,8 +24,8 @@
         <input type="text" class="form-control" v-model="question.spotify_uri">
         <small class="form-text text-muted">Højreklik på en sang i Spotfy: <i>Share -> Copy Spotify URI</i></small>
       </div>
-      <button type="button" class="btn btn-outline-primary" @click="save">Gem</button>
-      <button type="button" class="btn btn-outline-danger" @click="destroy">
+      <button type="button" class="btn btn-primary" @click="save">Gem</button>
+      <button type="button" class="btn btn-danger" @click="destroy">
         <b-icon-trash /> Slet
       </button>
     </form>

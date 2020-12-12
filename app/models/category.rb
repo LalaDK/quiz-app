@@ -12,6 +12,12 @@ class Category
     self.background_color = "##{SecureRandom.hex(3)}" if background_color.blank?
   end
 
+  after_create do
+    question = Question.new
+    question.category = self
+    question.save
+  end
+
   def font_color
     return "#FFFFFF" if background_color.blank?
 

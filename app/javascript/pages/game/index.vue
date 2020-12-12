@@ -1,43 +1,51 @@
 <template>
   <div>
-    <table class="table table-light table-bordered table-striped">
+    <table class="table table-sm table-dark table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
-          <th>Navn</th>
+          <th>Quiznavn</th>
+          <th>Oprettet</th>
           <th>PIN-kode</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
+        <tr v-if="!games.length">
+          <td colspan="4" class="norows">Du har endnu ikke startet nogen spil.</td>
+        </tr>
         <tr v-for="game in games" :key="game.id">
           <td> {{ game.quiz_name }} </td>
+          <td></td>
           <td> <b>{{ game.pin_code }}</b> </td>
-          <td>
-              <button type="button" class="btn btn-primary" @click="open(game.id)">
-                <b-icon-controller /> Vis
-              </button>
-              <button type="button" class="btn btn-danger" @click="destroy(game.id)">
-                <b-icon-trash /> Slet
-              </button>
+          <td class="td-toolbar">
+            <button type="button" class="btn btn-primary" @click="open(game.id)">
+              <b-icon-controller /> Administrér
+            </button>
+            <button type="button" class="btn btn-danger" @click="destroy(game.id)">
+              <b-icon-trash /> Slet
+            </button>
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <div class="input-group">
+              <select class="form-control" v-model="quiz_id">
+                <option v-for="quiz in quizzes" v-bind:value="quiz.id">
+                  {{ quiz.name }}
+                </option>
+              </select>
+              <div class="input-group-append">
+                <button type="button" class="btn btn-primary" @click="create" :disabled="!quiz_id">
+                  <b-icon-controller/> Start spil
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
     </table>
-
-    <div class="input-group mb-3">
-  <select class="form-control" v-model="quiz_id">
-    <option v-for="quiz in quizzes" v-bind:value="quiz.id">
-      {{ quiz.name }}
-    </option>
-  </select>
-  <div class="input-group-append">
-    <button type="button" class="btn btn-primary" @click="create" :disabled="!quiz_id">
-      <b-icon-controller/> Opret spil
-    </button>
-  </div>
-</div>
-
-
   </div>
 </template>
 

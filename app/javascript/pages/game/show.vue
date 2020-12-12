@@ -36,11 +36,11 @@
             </span>
           </h5>
           <button type="button" class="btn btn-lg btn-primary" @click="showAnswer" v-if="!game.show_answer">Vis svar</button>
-          <a class="btn btn-lg btn-outline-success" :href="game.current_question.spotify_uri" target="_blank" v-if="game.current_question.spotify_uri">
+          <a class="btn btn-lg btn-success" :href="game.current_question.spotify_uri" target="_blank" v-if="game.current_question.spotify_uri">
             <img height="20" src="https://www.flaticon.com/svg/static/icons/svg/2111/2111624.svg" alt="">
             Spotify
           </a>
-          <button type="button" class="btn btn-lg btn-outline-danger" @click="closeQuestion">Luk</button>
+          <button type="button" class="btn btn-lg btn-danger" @click="closeQuestion">Luk</button>
           <br>
           <b>Giv {{game.current_question.reward}} point til:</b><br>
           <div class="btn-group center btn-group-lg" role="group" aria-label="...">

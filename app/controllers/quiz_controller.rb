@@ -14,7 +14,7 @@ class QuizController < AdminApplicationController
         quiz = Quiz.new
         quiz.user = current_user
         if quiz.save
-          render json: {}
+            render json: {}
         else
           raise
         end

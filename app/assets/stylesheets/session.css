@@ -11,7 +11,6 @@ label {
 }
 
 #session-container {
-  margin-top: calc(35vh - 200px);
   margin-left: calc(50% - 250px);
   padding: 20px;
   background-color: rgba(0,0,0,0.6);;

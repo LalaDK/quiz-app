@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <table class="table table-light">
+    <table class="table table-sm table-dark table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
           <th>Navn</th>
@@ -8,9 +8,12 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-if="!quizzes.length">
+          <td colspan="3" class="norows">Du har endnu ikke oprettet en quiz.</td>
+        </tr>
         <tr v-for="quiz in quizzes" :key="quiz.id">
           <td>{{ quiz.name || '(Unavngivet)' }}</td>
-          <td>
+          <td class="td-toolbar">
             <button type="button" class="btn btn-primary" @click="edit(quiz.id)">
               <b-icon-pencil /> Rediger
             </button>
@@ -20,10 +23,16 @@
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2" style="text-align: right;">
+            <button type="button" class="btn btn-primary" @click="create">
+              Opret quiz
+            </button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
-    <button type="button" class="btn btn-primary" @click="create">
-      <b-icon-plus/> Tilføj quiz
-    </button>
   </div>
 </template>
 

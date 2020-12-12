@@ -7,4 +7,10 @@ class Quiz
   belongs_to :user, class_name: 'User'
 
   has_many :categories, class_name: '::Category'
+
+  after_create do
+    category = ::Category.new
+    category.quiz = self
+    category.save
+  end
 end
