@@ -3,8 +3,8 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :e_mail %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :'E-mail' %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
   </div>
 
   <div class="field">
@@ -12,12 +12,12 @@
     <% if @minimum_password_length %>
     <em>(Minimum <%= @minimum_password_length %> karakterer)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :'Bekræft adgangskode' %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
   </div>
 
   <div class="actions">
