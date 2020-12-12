@@ -19,7 +19,7 @@ p.alert, p.notice {
 }
 
 div.row form, div.links {
-  background-color: rgb(0,0,0, 0.6);
+  background-color: rgb(0,0,0,0.6);
   padding: 20px;
   border-radius: 10px;
 }
