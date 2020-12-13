@@ -14,11 +14,11 @@
  *= require_self
  */
 
- html{
-   height: 100%;
- }
+html, body {
+  height: calc(100% - 50px);
+}
+
  body {
-   min-height: 100%;
    background-attachment: fixed;
  }
 
