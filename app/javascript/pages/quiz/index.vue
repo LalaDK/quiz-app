@@ -18,7 +18,7 @@
               <b-icon-pencil /> Rediger
             </button>
             <button type="button" class="btn btn-danger" @click="destroy(quiz.id)">
-              <b-icon-trash /> Slet
+              <b-icon-trash /> Slet quiz
             </button>
           </td>
         </tr>
@@ -55,9 +55,11 @@ export default {
       this.$router.push('/quiz/' + quiz_id);
     },
     destroy(quiz_id) {
-      Quiz.delete({id: quiz_id}).then(() => {
-        this.query();
-      })
+      if(window.confirm('Er du sikker på at du vil slette quizzen?')) {
+        Quiz.delete({id: quiz_id}).then(() => {
+          this.query();
+        });
+      }
     },
     query() {
       Quiz.query({}).then((response) => {

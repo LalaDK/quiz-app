@@ -14,7 +14,7 @@
       </div>
 
       <div class="center" v-if="!editName">
-        <button slot="trigger" type="button" name="button" class="btn btn-lg btn-secondary" @click="editName = true">
+        <button slot="trigger" type="button" name="button" class="btn btn-secondary" @click="editName = true">
           <b-icon-pencil /> Omdøb
         </button>
       </div>
@@ -23,7 +23,7 @@
         <category-component v-for="category in quiz.categories" :key="category.id" :quiz_id="quiz.id" :id="category.id" />
       </div>
 
-      <button type="button" @click="addCategory" class="btn btn-lg btn-secondary">Tilføj kategori</button>
+      <button type="button" @click="addCategory" class="btn btn-secondary">Tilføj kategori</button>
     </div>
   </div>
 </template>

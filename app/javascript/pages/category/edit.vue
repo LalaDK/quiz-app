@@ -16,9 +16,6 @@
     </div>
 
     <div class="center">
-      <button type="button" name="button" class="btn btn-primary" @click="createQuestion">
-        Tilføj spørgsmål
-      </button>
       <button slot="trigger" type="button" name="button" class="btn btn-secondary" @click="editName = true">
         <b-icon-pencil /> Omdøb
       </button>
@@ -28,7 +25,7 @@
         </button>
       </v-swatches>
       <button type="button" name="button" class="btn btn-danger" @click="deleteCategory">
-        <b-icon-trash /> Slet
+        <b-icon-trash /> Slet kategori
       </button>
     </div>
 
@@ -42,19 +39,19 @@
         <p class="card-text" v-for="link in question.links">
           <a :href="link.link">{{link.name}}</a>
         </p>
-
         <button type="button" name="button" class="btn btn-secondary" @click="editQuestion(question.id)">
           <b-icon-pencil /> Rediger
-
         </button>
         <button type="button" name="button" class="btn btn-danger" @click="deleteQuestion(question.id)">
-          <b-icon-trash /> Slet
+          <b-icon-trash /> Slet spørgsmål
         </button>
       </div>
     </div>
     <div class="center">
+      <button type="button" name="button" class="btn btn-primary" @click="createQuestion">
+        Tilføj spørgsmål
+      </button>
     </div>
-
   </div>
 </template>
 
@@ -88,9 +85,11 @@ export default {
       this.$router.push('/quiz/' + this.$route.params.quiz_id + '/category/' + this.$route.params.id + '/question/' + question_id);
     },
     deleteQuestion(question_id) {
-      Question.destroy({quiz_id: this.$route.params.quiz_id, category_id: this.$route.params.id, id: question_id}).then(() => {
-        this.get();
-      });
+      if(window.confirm('Er du sikker på at du vil slette spørgsmålet?')) {
+        Question.destroy({quiz_id: this.$route.params.quiz_id, category_id: this.$route.params.id, id: question_id}).then(() => {
+          this.get();
+        });
+      }
     },
     createQuestion() {
       Question.save({quiz_id: this.$route.params.quiz_id, category_id: this.$route.params.id}).then(() => {
@@ -98,9 +97,11 @@ export default {
       });
     },
     deleteCategory() {
-      Category.destroy({quiz_id: this.$route.params.quiz_id, id: this.$route.params.id}).then(() => {
-        this.$router.push('/quiz/' + this.$route.params.quiz_id);
-      })
+      if(window.confirm('Er du sikker på at du vil slette kategorien?')) {
+        Category.destroy({quiz_id: this.$route.params.quiz_id, id: this.$route.params.id}).then(() => {
+          this.$router.push('/quiz/' + this.$route.params.quiz_id);
+        });
+      }
     },
     save() {
       this.editName = false;

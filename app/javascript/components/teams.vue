@@ -20,7 +20,7 @@
           </td>
           <td style="width: 200px;">
             <button type="button" class="btn btn-danger" @click="destroy(team.id)">
-              <b-icon-trash /> Slet
+              <b-icon-trash /> Slet hold
             </button>
           </td>
         </tr>

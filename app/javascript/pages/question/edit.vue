@@ -57,7 +57,7 @@
               <button type="button" class="btn btn-secondary" @click="addLink">Tilføj link</button>
               <button type="button" class="btn btn-primary" @click="save">Gem</button>
               <button type="button" class="btn btn-danger" @click="destroy">
-                <b-icon-trash /> Slet
+                <b-icon-trash /> Slet spørgsmål
               </button>
             </div>
           </div>
@@ -91,9 +91,11 @@ export default {
       this.$router.push('/quiz/' + this.$route.params.quiz_id + '/category/' + this.$route.params.category_id);
     },
     destroy() {
-      Question.delete({quiz_id: this.$route.params.quiz_id, category_id: this.$route.params.category_id, id: this.$route.params.id}).then(() => {
-        this.$router.push('/quiz/' + this.$route.params.quiz_id + '/category/' + this.$route.params.category_id);
-      })
+      if(window.confirm('Er du sikker på at du vil slette spørgsmålet?')) {
+        Question.delete({quiz_id: this.$route.params.quiz_id, category_id: this.$route.params.category_id, id: this.$route.params.id}).then(() => {
+          this.$router.push('/quiz/' + this.$route.params.quiz_id + '/category/' + this.$route.params.category_id);
+        });
+      }
     },
     save() {
       this.editName = false;

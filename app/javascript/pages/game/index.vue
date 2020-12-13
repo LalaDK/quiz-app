@@ -20,7 +20,7 @@
               <b-icon-controller /> Administrér
             </button>
             <button type="button" class="btn btn-danger" @click="destroy(game.id)">
-              <b-icon-trash /> Slet
+              <b-icon-trash /> Slet spil
             </button>
           </td>
         </tr>
@@ -64,9 +64,11 @@ export default {
       this.$router.push('/game/' + game_id)
     },
     destroy(game_id) {
-      Game.delete({id: game_id}).then(() => {
-        this.query();
-      })
+      if(window.confirm('Er du sikker på at du vil slette spillet?')) {
+        Game.delete({id: game_id}).then(() => {
+          this.query();
+        });
+      }
     },
     create() {
       Game.save({quiz_id: this.quiz_id}).then(() => {
