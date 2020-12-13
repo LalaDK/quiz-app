@@ -106,6 +106,14 @@ export default {
             window.location.reload();
           },
           received(data) {
+            if(data.categories) {
+              data.categories = data.categories.map((category) => {
+                category.questions = (category.questions || []).sort((a, b) => {
+                  return a.reward > b.reward ? 1 : -1;
+                })
+                return category;
+              })
+            }
             self.game = data;
           }
         }
@@ -116,7 +124,7 @@ export default {
     game: function(newValue, oldValue) {
       if(newValue.show_answer || newValue.questions_left == 0) {
         this.$confetti.start({
-          particles: [ { type: 'rect', size: 15, dropRate: 15 } ] 
+          particles: [ { type: 'rect', size: 15, dropRate: 15 } ]
         });
       } else {
         this.$confetti.stop()
