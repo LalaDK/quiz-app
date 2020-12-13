@@ -1,31 +1,30 @@
 <template lang="html">
-  <div class="">
+  <div>
+    <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
+      <b-icon-arrow-return-left /> Tilbage
+    </button>
+    <div class="center">
+      <h1 v-if="!editName">{{quiz.name || '(Unavngivet)'}}</h1>
 
-  <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
-    <b-icon-arrow-return-left /> Tilbage
-  </button>
-  <div class="center">
-    <h1 v-if="!editName">{{quiz.name || '(Unavngivet)'}}</h1>
-
-    <div class="input-group" v-if="editName">
-      <input type="text" class="form-control" v-model="quiz.name" />
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button" @click="save">Gem</button>
+      <div class="input-group" v-if="editName">
+        <input type="text" class="form-control form-control-lg" v-model="quiz.name" />
+        <div class="input-group-append">
+          <button class="btn btn-lg btn-primary" type="button" @click="save">Gem</button>
+        </div>
       </div>
-    </div>
 
-    <div class="center" v-if="!editName">
-      <button slot="trigger" type="button" name="button" class="btn btn-primary" @click="editName = true">
-        <b-icon-pencil /> Omdøb
-      </button>
-    </div>
+      <div class="center" v-if="!editName">
+        <button slot="trigger" type="button" name="button" class="btn btn-primary" @click="editName = true">
+          <b-icon-pencil /> Omdøb
+        </button>
+      </div>
 
-    <div class="flex-container">
-      <category-component v-for="category in quiz.categories" :key="category.id" :quiz_id="quiz.id" :id="category.id" />
-    </div>
+      <div class="flex-container">
+        <category-component v-for="category in quiz.categories" :key="category.id" :quiz_id="quiz.id" :id="category.id" />
+      </div>
 
-    <button type="button" @click="addCategory" class="btn btn-lg btn-primary">Tilføj kategori</button>
-  </div>
+      <button type="button" @click="addCategory" class="btn btn-lg btn-primary">Tilføj kategori</button>
+    </div>
   </div>
 </template>
 
@@ -86,7 +85,7 @@ div.flex-container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-    justify-content: center;
+  justify-content: center;
 }
 
 h1 {
