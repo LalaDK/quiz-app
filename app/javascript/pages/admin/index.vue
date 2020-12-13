@@ -35,7 +35,10 @@ import QuizIndex from '../quiz/index.vue'
 import Logout from '../../components/logout.vue'
 
 export default {
-  components: { GameIndex, QuizIndex, Logout }
+  components: { GameIndex, QuizIndex, Logout },
+  created() {
+    window.csrfToken = document.querySelector('meta[name=csrf-token]').content;
+  }
 }
 </script>
 

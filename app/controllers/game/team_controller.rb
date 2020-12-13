@@ -4,7 +4,7 @@ class Game::TeamController < AdminApplicationController
     respond_to do |format|
       format.json do
         game = Game.find(params[:game_id])
-        render json: game.teams
+        render json: game.teams.as_json(methods: :font_color)
       end
     end
   end

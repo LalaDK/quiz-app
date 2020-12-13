@@ -31,27 +31,38 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="question.links.length">
             <label class="col-sm-4 col-form-label" for="question">Links</label>
             <div class="col-sm-8">
               <div class="form-row" v-for="link in question.links">
                 <div class="form-group col-md-6">
-                  <label  for="links">Linkbeskrivelse</label>
+                  <label for="links">Linkbeskrivelse</label>
                   <input type="text" class="form-control" v-model="link.name" placeholder="Linkbeskrivelse">
                 </div>
                 <div class="form-group col-md-6">
-                  <label  for="links">Adresse</label>
-                  <input type="text" class="form-control" v-model="link.link" placeholder="Adresse">
+                  <label for="links">Adresse</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" v-model="link.link" placeholder="Adresse">
+                    <button type="button" class="btn btn-danger" name="button" @click="removeLink($index)">
+                      <b-icon-x />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="question"></label>
+            <div class="col-sm-8">
+              <button type="button" class="btn btn-secondary" @click="addLink">Tilføj link</button>
+              <button type="button" class="btn btn-primary" @click="save">Gem</button>
+              <button type="button" class="btn btn-danger" @click="destroy">
+                <b-icon-trash /> Slet
+              </button>
+            </div>
+          </div>
 
-          <button type="button" class="btn btn-primary" @click="addLink">Tilføj link</button>
-          <button type="button" class="btn btn-primary" @click="save">Gem</button>
-          <button type="button" class="btn btn-danger" @click="destroy">
-            <b-icon-trash /> Slet
-          </button>
+
         </form>
       </div>
     </div>
@@ -69,6 +80,9 @@ export default {
     }
   },
   methods: {
+    removeLink(index) {
+      this.question.links.splice(index, 1);
+    },
     addLink() {
       this.question.links = this.question.links || [];
       this.question.links.push({name: '', link: ''})

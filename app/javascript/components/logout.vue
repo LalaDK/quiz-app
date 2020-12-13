@@ -1,19 +1,20 @@
 <template lang="html">
-  <button id="logout-btn" class="btn btn-secondary pull-right" @click="logout">
+  <button id="logout-btn" class="btn btn-secondary pull-right" type="button" @click="logout">
     <b-icon-person-circle/> Log ud
   </button>
 </template>
 
 <script>
+import Axios from 'axios'
+
 export default {
   methods: {
     logout() {
-
+      window.location = '/users/sign_out'
     }
   }
 }
 </script>
-
 <style lang="css" scoped>
 #logout-btn {
   position: absolute;

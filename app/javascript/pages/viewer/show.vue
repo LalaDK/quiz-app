@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div id="viewer">
     <div class="logo" v-if="!connected"></div>
     <div class="row" v-if="!connected">
       <div class="offset-lg-4 col-lg-4 offset-md-4 col-md-4" id="join-game-container">
@@ -8,7 +8,7 @@
             <div class="input-group">
               <input type="text" id="pin-code" inputmode="numeric" pattern="\d*" v-model="pin_code" placeholder="PIN-kode" class="form-control form-control-lg" autofocus>
               <div class="input-group-append">
-                <button class="btn btn-lg btn-primary" type="button" @click="joinGame">Go!</button>
+                <button class="btn btn-lg btn-secondary" type="button" @click="joinGame">Go!</button>
               </div>
             </div>
           </div>
@@ -46,8 +46,6 @@
       </div>
     </div>
 
-
-
     <modal v-if="game.current_question_id" :game="game" />
     <background />
   </div>
@@ -78,7 +76,7 @@ export default {
       window.location.href = '/admin';
     },
     questionStyle(question) {
-      let team = this.game.teams.filter((team) => {
+      let team = ((this.game || {}).teams || []).filter((team) => {
         return team.id == question.team_id;
       })[0]
       if(team) {
@@ -105,7 +103,7 @@ export default {
           rejected() {
             alert('Ugyldig PIN');
             self.connected = false
-
+            window.location.reload();
           },
           received(data) {
             self.game = data;
@@ -117,7 +115,9 @@ export default {
   watch: {
     game: function(newValue, oldValue) {
       if(newValue.show_answer || newValue.questions_left == 0) {
-        this.$confetti.start({ particles: [ { type: 'rect' } ] });
+        this.$confetti.start({
+          particles: [ { type: 'rect', size: 15, dropRate: 15 } ] 
+        });
       } else {
         this.$confetti.stop()
       }
@@ -127,6 +127,10 @@ export default {
 </script>
 
 <style lang="css">
+#viewer {
+  margin-top: 50px;
+}
+
 div.score-container h1 {
   padding: 2px;
   margin: 6px;

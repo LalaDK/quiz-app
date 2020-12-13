@@ -15,6 +15,9 @@ class Category
   after_create do
     question = Question.new
     question.category = self
+    question.question = "Hvad er Quizzy?"
+    question.answer = "Et dejligt quizprogram!"
+    question.links = [{link: 'https://www.quizzy.dk/', name: 'www.quizzy.dk'}]
     question.save
   end
 

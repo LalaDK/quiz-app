@@ -9,9 +9,14 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-if="!teams.length">
+          <td colspan="2" class="norows">
+            Ingen hold tilføjet endnu.
+          </td>
+        </tr>
         <tr v-for="team in teams" :key="team.id">
           <td :style="{backgroundColor: team.background_color}">
-            <h4>{{ team.name }}</h4>
+            <h4 :style="{color: team.font_color}">{{ team.name }}</h4>
           </td>
           <td style="width: 200px;">
             <button type="button" class="btn btn-danger" @click="destroy(team.id)">
@@ -27,11 +32,11 @@
           </td>
           <td>
             <v-swatches v-model="background_color">
-              <button slot="trigger" type="button" name="button" class="btn btn-primary">
+              <button slot="trigger" type="button" name="button" class="btn btn-secondary">
                 <b-icon-brush /> Farve
               </button>
             </v-swatches>
-            <button class="btn btn-primary" type="button" @click="create" :disabled="!name && !background_color">Gem</button>
+            <button class="btn btn-secondary" type="button" @click="create" :disabled="!name && !background_color">Tilføj hold</button>
           </td>
         </tr>
       </tfoot>

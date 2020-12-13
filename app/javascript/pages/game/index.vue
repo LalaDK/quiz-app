@@ -16,7 +16,7 @@
           <td> {{ game.quiz_name }} </td>
           <td> <b>{{ game.pin_code }}</b> </td>
           <td class="td-toolbar">
-            <button type="button" class="btn btn-primary" @click="open(game.id)">
+            <button type="button" class="btn btn-secondary" @click="open(game.id)">
               <b-icon-controller /> Administrér
             </button>
             <button type="button" class="btn btn-danger" @click="destroy(game.id)">
@@ -35,7 +35,7 @@
                 </option>
               </select>
               <div class="input-group-append">
-                <button type="button" class="btn btn-primary" @click="create" :disabled="!quiz_id">
+                <button type="button" class="btn btn-secondary" @click="create" :disabled="!quiz_id">
                   <b-icon-controller/> Start spil
                 </button>
               </div>

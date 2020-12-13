@@ -27,14 +27,7 @@ class GameController < AdminApplicationController
   def show
     respond_to do |format|
       format.json do
-        render json: Game.find(params[:id]).as_json(
-          include: {
-            categories: {
-              methods: :font_color
-            }
-          },
-          methods: %i[current_question current_team score_board ended questions_left]
-        )
+        render json: Game.find(params[:id]).json
       end
     end
   end

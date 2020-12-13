@@ -14,7 +14,7 @@
         <tr v-for="quiz in quizzes" :key="quiz.id">
           <td>{{ quiz.name || '(Unavngivet)' }}</td>
           <td class="td-toolbar">
-            <button type="button" class="btn btn-primary" @click="edit(quiz.id)">
+            <button type="button" class="btn btn-secondary" @click="edit(quiz.id)">
               <b-icon-pencil /> Rediger
             </button>
             <button type="button" class="btn btn-danger" @click="destroy(quiz.id)">
@@ -26,7 +26,7 @@
       <tfoot>
         <tr>
           <td colspan="2" style="text-align: right;">
-            <button type="button" class="btn btn-primary" @click="create">
+            <button type="button" class="btn btn-secondary" @click="create">
               Opret quiz
             </button>
           </td>

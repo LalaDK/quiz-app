@@ -29,6 +29,10 @@ class Game
     ActionCable.server.broadcast(self.id, self.json)
   end
 
+  after_update do
+    ActionCable.server.broadcast(self.id, self.json)
+  end
+
   def start_game
     self.lock_game = true
     next_team

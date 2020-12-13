@@ -9,22 +9,25 @@
         <div class="input-group" v-if="editName">
           <input type="text" class="form-control" v-model="category.name" />
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" @click="save">Gem</button>
+            <button class="btn btn-secondary" type="button" @click="save">Gem</button>
           </div>
         </div>
       </div>
     </div>
 
     <div class="center">
-      <button slot="trigger" type="button" name="button" class="btn btn-primary" @click="editName = true">
+      <button type="button" name="button" class="btn btn-primary" @click="createQuestion">
+        Tilføj spørgsmål
+      </button>
+      <button slot="trigger" type="button" name="button" class="btn btn-secondary" @click="editName = true">
         <b-icon-pencil /> Omdøb
       </button>
       <v-swatches v-model="category.background_color" @input="save">
-        <button slot="trigger" type="button" name="button" class="btn btn-primary">
+        <button slot="trigger" type="button" name="button" class="btn btn-secondary">
           <b-icon-brush /> Farve
         </button>
       </v-swatches>
-      <button slot="trigger" type="button" name="button" class="btn btn-danger" @click="deleteCategory">
+      <button type="button" name="button" class="btn btn-danger" @click="deleteCategory">
         <b-icon-trash /> Slet
       </button>
     </div>
@@ -40,7 +43,7 @@
           <a :href="link.link">{{link.name}}</a>
         </p>
 
-        <button type="button" name="button" class="btn btn-primary" @click="editQuestion(question.id)">
+        <button type="button" name="button" class="btn btn-secondary" @click="editQuestion(question.id)">
           <b-icon-pencil /> Rediger
 
         </button>
@@ -50,9 +53,6 @@
       </div>
     </div>
     <div class="center">
-      <button slot="trigger" type="button" name="button" class="btn btn-lg btn-primary" @click="createQuestion">
-        Tilføj spørgsmål
-      </button>
     </div>
 
   </div>
