@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <button type="button" class="btn btn-primary" @click="goBack">
-      <b-icon-arrow-left /> Tilbage
+    <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
+      <b-icon-arrow-return-left /> Tilbage
     </button>
     <div class="center">
       <div class="category" :style="{backgroundColor: category.background_color, color: category.font_color}">
@@ -29,15 +29,15 @@
       </button>
     </div>
 
-    <div v-for="question in category.questions" :key="question.id" class="card">
+    <div v-for="question in questionsSorted" :key="question.id" class="card bg-dark text-white">
       <div class="card-header" :style="{backgroundColor: category.background_color, color: category.font_color, fontWeight: 'bold'}">
         {{question.reward}} points
       </div>
       <div class="card-body">
         <h5 class="card-title">{{question.question}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{question.answer}}</h6>
-        <p class="card-text">
-          <a :href="question.spotify_uri">Spotify</a>
+        <p class="card-text" v-for="link in question.links">
+          <a :href="link.link">{{link.name}}</a>
         </p>
 
         <button type="button" name="button" class="btn btn-primary" @click="editQuestion(question.id)">
@@ -50,8 +50,8 @@
       </div>
     </div>
     <div class="center">
-      <button slot="trigger" type="button" name="button" class="btn btn-primary" @click="createQuestion">
-        <b-icon-plus /> Nyt spørgsmål
+      <button slot="trigger" type="button" name="button" class="btn btn-lg btn-primary" @click="createQuestion">
+        Tilføj spørgsmål
       </button>
     </div>
 
@@ -65,6 +65,13 @@ import 'vue-swatches/dist/vue-swatches.css'
 
 export default {
   components: { VSwatches },
+  computed: {
+    questionsSorted() {
+      return (this.category.questions || []).sortBy((question) => {
+        return question.reward || 9999;
+      });
+    }
+  },
   data() {
     return {
       editName: false,
@@ -141,7 +148,7 @@ div.category {
   margin: 20px;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 5px 10px 18px #888888;
+  box-shadow: 5px 10px 18px black;
 }
 
 p.title {

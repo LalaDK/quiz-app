@@ -1,5 +1,8 @@
 <template>
   <div>
+    <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
+      <b-icon-arrow-return-left /> Tilbage
+    </button>
     <div class="center">
       <h3 class="score" v-for="score in game.score_board">
         <span class="badge badge-primary" :style="{ backgroundColor: score.team.background_color }">
@@ -15,9 +18,8 @@
 
     <div v-if="game.id && !game.lock_game">
       <teams-component :game_id="game.id" @input="get" />
-    <br>
-    <button type="button" class="center btn btn-primary" :disabled="(game.teams || []).length < 2" @click="startGame">Start game</button>
-    <br>
+    <button type="button" class="center btn btn-lg btn-primary" :disabled="(game.teams || []).length < 2" @click="startGame">Start spil</button>
+    <br><br>
     <div class="alert alert-primary" role="alert">
       Tilføj minimum 2 hold for at starte spillet ...
     </div>
@@ -25,7 +27,7 @@
 
 
     <div v-if="game.current_question_id">
-      <div class="card" v-if="game.current_question">
+      <div class="card bg-dark text-white" v-if="game.current_question">
         <div class="card-header center">
           {{game.current_question.question}}
         </div>
@@ -36,13 +38,11 @@
             </span>
           </h5>
           <button type="button" class="btn btn-lg btn-primary" @click="showAnswer" v-if="!game.show_answer">Vis svar</button>
-          <a class="btn btn-lg btn-success" :href="game.current_question.spotify_uri" target="_blank" v-if="game.current_question.spotify_uri">
-            <img height="20" src="https://www.flaticon.com/svg/static/icons/svg/2111/2111624.svg" alt="">
-            Spotify
-          </a>
           <button type="button" class="btn btn-lg btn-danger" @click="closeQuestion">Luk</button>
-          <br>
-          <b>Giv {{game.current_question.reward}} point til:</b><br>
+          <div v-for="link in game.current_question.links">
+            <button type="button" class="btn btn-lg btn-link" @click="openLink(link)">{{link.name}}</button>
+          </div>
+          <br><b>Giv {{game.current_question.reward}} point til:</b><br>
           <div class="btn-group center btn-group-lg" role="group" aria-label="...">
             <button type="button" class="btn btn-primary" @click="assignPointsTo(team.id)" v-for="team in game.teams" :style="{ backgroundColor: team.background_color }"> {{team.name}} </button>
             <button type="button" class="btn btn-secondary" @click="assignPointsTo(null)">Ingen</button>
@@ -52,19 +52,21 @@
     </div>
 
     <div v-if="game.lock_game && !game.current_question_id">
-      <div class="card" v-for="category in game.categories" style="margin-bottom: 20px;">
+      <div class="card bg-dark text-white" v-for="category in game.categories" style="margin-bottom: 20px;">
         <div class="card-header" :style="{backgroundColor: category.background_color, color: category.font_color}">
           <h2 class="center">{{category.name}}</h2>
         </div>
-        <div class="list-group">
-          <a href="#" class="list-group-item list-group-item-action center" @click="openQuestion(question.id)" v-for="question in category.questions">
-            <h3>
-              <b-icon-square v-if="!question.team_id && !question.skipped" />
-              <b-icon-check-square v-if="question.team_id" />
-              <b-icon-dash-square v-if="question.skipped" />
-              {{question.reward}} points
-            </h3>
-          </a>
+        <div class="card-body">
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action center" :style="{backgroundColor: category.background_color, color: category.font_color}" @click="openQuestion(question.id)" v-for="question in category.questions">
+              <h3>
+                <b-icon-square v-if="!question.team_id && !question.skipped" />
+                <b-icon-check-square v-if="question.team_id" />
+                <b-icon-dash-square v-if="question.skipped" />
+                {{question.reward}} points
+              </h3>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -84,6 +86,12 @@ export default {
     }
   },
   methods: {
+    goBack() {
+      this.$router.push('/');
+    },
+    openLink(link) {
+      window.open(link.link);
+    },
     showAnswer() {
       Axios({
         method: 'put',

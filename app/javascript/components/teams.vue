@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Teams</h1>
-    <table class="table table-bordered table-striped">
+    <table class="table table-sm table-dark table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
           <th>Navn</th>
@@ -10,34 +10,32 @@
       </thead>
       <tbody>
         <tr v-for="team in teams" :key="team.id">
-          <td>
-            <h1>
-              <span class="badge badge-primary" :style="{backgroundColor: team.background_color}">
-                {{ team.name }}
-              </span>
-            </h1>
+          <td :style="{backgroundColor: team.background_color}">
+            <h4>{{ team.name }}</h4>
           </td>
-          <td>
+          <td style="width: 200px;">
             <button type="button" class="btn btn-danger" @click="destroy(team.id)">
               <b-icon-trash /> Slet
             </button>
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td>
+            <input type="text" class="form-control" v-model="name" placeholder="Tilføj hold">
+          </td>
+          <td>
+            <v-swatches v-model="background_color">
+              <button slot="trigger" type="button" name="button" class="btn btn-primary">
+                <b-icon-brush /> Farve
+              </button>
+            </v-swatches>
+            <button class="btn btn-primary" type="button" @click="create" :disabled="!name && !background_color">Gem</button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
-
-    <div class="input-group">
-      <input type="text" class="form-control" v-model="name" placeholder="Holdnavn">
-      <div class="input-group-append" id="button-addon4">
-        <v-swatches v-model="background_color">
-          <button slot="trigger" type="button" name="button" class="btn btn-primary">
-            <b-icon-brush /> Farve
-          </button>
-        </v-swatches>
-        <button class="btn btn-secondary" type="button" @click="create" :disabled="!name && !background_color">Gem</button>
-      </div>
-    </div>
-
   </div>
 </template>
 
@@ -67,6 +65,7 @@ export default {
         background_color: this.background_color
       };
       Team.save({game_id: this.game_id}, data).then(() => {
+        this.name = '';
         this.$emit('input', this.teams);
         this.query();
       })

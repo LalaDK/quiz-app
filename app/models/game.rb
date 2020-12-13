@@ -129,7 +129,7 @@ class Game
 
   def score_board
     teams.map do |team|
-      {team: team, points: points_by_team_id(team.id)}
+      {team: team, points: points_by_team_id(team.id), turn: team.id == current_team_id}
     end
   end
 
@@ -157,7 +157,7 @@ class Game
           question: q.question,
           answer: q.answer,
           reward: q.reward,
-          spotify_uri: q.spotify_uri
+          links: q.links
         )
       end
       category

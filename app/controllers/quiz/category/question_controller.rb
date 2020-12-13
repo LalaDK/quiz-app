@@ -58,6 +58,6 @@ class Quiz::Category::QuestionController < AdminApplicationController
   end
 
   def params_permit
-    params.permit %i[question answer reward spotify_uri]
+    params.permit [ :question, :answer, :reward, links: [:name, :link] ]
   end
 end

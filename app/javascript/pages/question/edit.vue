@@ -1,34 +1,60 @@
 <template lang="html">
   <div class="">
-    <button type="button" class="btn btn-primary" @click="goBack">
-      <b-icon-arrow-left /> Tilbage
+    <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
+      <b-icon-arrow-return-left /> Tilbage
     </button>
-    <form>
-      <div class="form-group">
-        <label for="question">Spørgsmål</label>
-        <input type="text" class="form-control" v-model="question.question">
-        <small class="form-text text-muted"></small>
+    <div class="card bg-dark text-white">
+      <div class="card-header">
+        <h1>Spørgsmål</h1>
       </div>
-      <div class="form-group">
-        <label for="question">Svar</label>
-        <input type="text" class="form-control" v-model="question.answer">
-        <small class="form-text text-muted"></small>
+      <div class="card-body">
+        <form>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="question">Spørgsmål</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" v-model="question.question">
+              <small class="form-text text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="question">Svar</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" v-model="question.answer">
+              <small class="form-text text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="question">Point</label>
+            <div class="col-sm-8">
+              <input type="number" class="form-control" v-model="question.reward">
+              <small class="form-text text-muted">Point ved rigtigt svar.</small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="question">Links</label>
+            <div class="col-sm-8">
+              <div class="form-row" v-for="link in question.links">
+                <div class="form-group col-md-6">
+                  <label  for="links">Linkbeskrivelse</label>
+                  <input type="text" class="form-control" v-model="link.name" placeholder="Linkbeskrivelse">
+                </div>
+                <div class="form-group col-md-6">
+                  <label  for="links">Adresse</label>
+                  <input type="text" class="form-control" v-model="link.link" placeholder="Adresse">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary" @click="addLink">Tilføj link</button>
+          <button type="button" class="btn btn-primary" @click="save">Gem</button>
+          <button type="button" class="btn btn-danger" @click="destroy">
+            <b-icon-trash /> Slet
+          </button>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="question">Point</label>
-        <input type="number" class="form-control" v-model="question.reward">
-        <small class="form-text text-muted">Point ved rigtigt svar.</small>
-      </div>
-      <div class="form-group">
-        <label for="question">Spotify URI</label>
-        <input type="text" class="form-control" v-model="question.spotify_uri">
-        <small class="form-text text-muted">Højreklik på en sang i Spotfy: <i>Share -> Copy Spotify URI</i></small>
-      </div>
-      <button type="button" class="btn btn-primary" @click="save">Gem</button>
-      <button type="button" class="btn btn-danger" @click="destroy">
-        <b-icon-trash /> Slet
-      </button>
-    </form>
+    </div>
   </div>
 </template>
 <script>
@@ -37,10 +63,16 @@ import { Question } from '../../services'
 export default {
   data() {
     return {
-      question: {}
+      question: {
+        links: []
+      }
     }
   },
   methods: {
+    addLink() {
+      this.question.links = this.question.links || [];
+      this.question.links.push({name: '', link: ''})
+    },
     goBack() {
       this.$router.push('/quiz/' + this.$route.params.quiz_id + '/category/' + this.$route.params.category_id);
     },

@@ -4,7 +4,7 @@ class Game::Question
   field :question, type: String
   field :answer, type: String
   field :reward, type: Integer, default: 100
-  field :spotify_uri, type: String
+  field :links, type: Array, default: []
   field :team_id, type: BSON::ObjectId
   field :skipped, type: Boolean
 

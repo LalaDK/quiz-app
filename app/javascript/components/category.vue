@@ -51,7 +51,7 @@ div.category {
   margin: 20px;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 5px 10px 18px #888888;
+  box-shadow: 5px 10px 18px black;
   transition: all ease 200ms;
 }
 

@@ -14,9 +14,13 @@
  *= require_self
  */
 
-html, body {
-  height: 100%;
-}
+ html{
+   height: 100%;
+ }
+ body {
+   min-height: 100%;
+   background-attachment: fixed;
+ }
 
  #confetti-canvas {
    z-index: 1000;
@@ -48,4 +52,15 @@ div.logo::after {
 
 .td-toolbar {
   text-align: right;
+}
+
+.left-corner-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0px 0px 0.25rem 0px !important;
+}
+
+#app {
+  margin-top: 50px;
 }

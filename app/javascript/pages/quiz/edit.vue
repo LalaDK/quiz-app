@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="">
 
-  <button type="button" class="btn btn-primary" @click="goBack">
-    <b-icon-arrow-left /> Tilbage
+  <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
+    <b-icon-arrow-return-left /> Tilbage
   </button>
   <div class="center">
     <h1 v-if="!editName">{{quiz.name || '(Unavngivet)'}}</h1>
@@ -24,7 +24,7 @@
       <category-component v-for="category in quiz.categories" :key="category.id" :quiz_id="quiz.id" :id="category.id" />
     </div>
 
-    <button type="button" @click="addCategory" class="btn btn btn-primary">Tilføj kategori</button>
+    <button type="button" @click="addCategory" class="btn btn-lg btn-primary">Tilføj kategori</button>
   </div>
   </div>
 </template>

@@ -4,7 +4,6 @@
       <thead class="thead-dark">
         <tr>
           <th>Quiznavn</th>
-          <th>Oprettet</th>
           <th>PIN-kode</th>
           <th></th>
         </tr>
@@ -15,7 +14,6 @@
         </tr>
         <tr v-for="game in games" :key="game.id">
           <td> {{ game.quiz_name }} </td>
-          <td></td>
           <td> <b>{{ game.pin_code }}</b> </td>
           <td class="td-toolbar">
             <button type="button" class="btn btn-primary" @click="open(game.id)">

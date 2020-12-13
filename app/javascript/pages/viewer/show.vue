@@ -26,7 +26,11 @@
 
     <div class="score-container">
       <div v-for="score in game.score_board">
-        <h1><span class="badge badge-primary" :style="{backgroundColor: score.team.background_color, color: score.team.font_color}">{{score.team.name}}</span></h1>
+        <h1>
+          <span class="badge badge-primary" :class="(score.team.id == game.current_team_id ? 'underline' : '')" :style="{backgroundColor: score.team.background_color, color: score.team.font_color}">
+            {{score.team.name}}
+          </span>
+        </h1>
         <div class="score">{{score.points}} point</div>
       </div>
     </div>
@@ -112,7 +116,7 @@ export default {
   },
   watch: {
     game: function(newValue, oldValue) {
-      if(newValue.show_answer) {
+      if(newValue.show_answer || newValue.questions_left == 0) {
         this.$confetti.start({ particles: [ { type: 'rect' } ] });
       } else {
         this.$confetti.stop()
@@ -123,6 +127,19 @@ export default {
 </script>
 
 <style lang="css">
+div.score-container h1 {
+  padding: 2px;
+  margin: 6px;
+}
+
+div.score-container h1 span {
+  padding: 15px;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
 #join-game-container {
   top: 40vmin;
 }
@@ -144,7 +161,6 @@ div.score-container {
   top: 0;
   right: 0;
   border-radius: 0px 0px 0px 0.25em;
-
 }
 
 div.score {
@@ -159,7 +175,7 @@ div.category {
   margin: 20px;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 5px 10px 18px #484848;
+  box-shadow: 5px 10px 18px black;
 }
 
 div.question {
@@ -168,7 +184,7 @@ div.question {
   margin: 20px 40px 20px 40px;
   border-radius: 10px;
   border: 4px solid #ccc;
-  box-shadow: 5px 10px 18px #484848;
+  box-shadow: 5px 10px 18px black;
 }
 
 p {
@@ -178,6 +194,7 @@ p {
 }
 
 p.question {
+  color: black;
   font-size: 18pt;
 }
 

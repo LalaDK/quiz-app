@@ -1,5 +1,6 @@
 <template lang="html">
 <div>
+  <logout />
   <br><br>
   <div class="row">
     <div class="col-12">
@@ -31,9 +32,10 @@
 <script>
 import GameIndex from '../game/index.vue'
 import QuizIndex from '../quiz/index.vue'
+import Logout from '../../components/logout.vue'
 
 export default {
-  components: { GameIndex, QuizIndex }
+  components: { GameIndex, QuizIndex, Logout }
 }
 </script>
 
