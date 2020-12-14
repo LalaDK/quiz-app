@@ -41,7 +41,7 @@
           <p class="title">{{category.name}}</p>
         </div>
         <div v-for="question in category.questions" class="question" :style="questionStyle(question)">
-          <p class="question">{{question.reward}} point</p>
+          <p class="question" style="{textDecoration: question.skipped ? 'line-through' : 'none'}">{{question.reward}} point</p>
         </div>
       </div>
     </div>
