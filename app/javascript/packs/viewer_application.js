@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue.esm'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css'
 import VueConfetti from 'vue-confetti'
 
 Vue.use(VueConfetti)

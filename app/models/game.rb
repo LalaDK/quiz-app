@@ -133,7 +133,11 @@ class Game
 
   def score_board
     teams.map do |team|
-      {team: team, points: points_by_team_id(team.id), turn: team.id == current_team_id}
+      {
+        team: team.as_json(methods: :font_color), 
+        points: points_by_team_id(team.id),
+        turn: team.id == current_team_id
+      }
     end
   end
 

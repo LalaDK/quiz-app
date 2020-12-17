@@ -1,51 +1,28 @@
 <template lang="html">
-  <div id="viewer">
-    <div class="logo" v-if="!connected"></div>
-    <div class="row" v-if="!connected">
-      <div class="offset-lg-4 col-lg-4 offset-md-4 col-md-4" id="join-game-container">
-        <form @submit.prevent="joinGame">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" id="pin-code" inputmode="numeric" pattern="\d*" v-model="pin_code" placeholder="PIN-kode" class="form-control form-control-lg" autofocus>
-              <div class="input-group-append">
-                <button class="btn btn-lg btn-secondary" type="button" @click="joinGame">Go!</button>
-              </div>
+  <div style="height: 100%;" class="gradiant">
+    <login v-if="!connected" v-on:pin-entered="joinGame" />
+
+    <button class="btn btn-lg btn-dark pull-right top-right-corner" v-if="!connected" @click="goToAdmin"> <b-icon-person-circle/> Min side </button>
+    <div class="flexbox" v-if="connected">
+      <div class="score-container">
+        <div v-for="score in game.score_board" class="team">
+          <div class="name" :class="{underline: score.turn}" :style="{backgroundColor: score.team.background_color, color: score.team.font_color}">
+            {{score.team.name}}
+          </div>
+          <div class="score">{{score.points}} point</div>
+        </div>
+      </div>
+      <div class="category-container">
+        <div v-for="category in game.categories" :key="category.id" class="question-container" >
+          <div class="category" :style="{backgroundColor: category.background_color, color: category.font_color}"> {{category.name}} </div>
+          <div v-for="question in category.questions" class="question" :style="questionStyle(question)">
+            <div>
+              {{question.reward}} point
             </div>
           </div>
-        </form>
-      </div>
-    </div>
-
-      <button id="disconnect-btn" class="btn btn-lg btn-dark pull-right" v-if="connected" @click="disconnect">
-        <b-icon-x />
-      </button>
-
-      <button id="disconnect-btn" class="btn btn-lg btn-dark pull-right" v-if="!connected" @click="goToAdmin">
-        <b-icon-person-circle/> Min side
-      </button>
-
-    <div class="score-container">
-      <div v-for="score in game.score_board">
-        <h1>
-          <span class="badge badge-primary" :class="(score.team.id == game.current_team_id ? 'underline' : '')" :style="{backgroundColor: score.team.background_color, color: score.team.font_color}">
-            {{score.team.name}}
-          </span>
-        </h1>
-        <div class="score">{{score.points}} point</div>
-      </div>
-    </div>
-
-    <div class="category-container">
-      <div v-for="category in game.categories" :key="category.id" class="question-container" >
-        <div class="category" :style="{backgroundColor: category.background_color, color: category.font_color}">
-          <p class="title">{{category.name}}</p>
-        </div>
-        <div v-for="question in category.questions" class="question" :style="questionStyle(question)">
-          <p class="question" style="{textDecoration: question.skipped ? 'line-through' : 'none'}">{{question.reward}} point</p>
         </div>
       </div>
     </div>
-
     <modal v-if="game.current_question_id" :game="game" />
     <background />
   </div>
@@ -57,18 +34,18 @@ require("channels")
 
 import consumer from "channels/consumer"
 import Background from "../../components/background"
+import Login from "../../components/login"
 import Modal from "../../components/modal"
 
 window.quizChannel;
 
 export default {
-  components: { Background, Modal },
+  components: { Background, Modal, Login },
   data() {
     return {
       game: {},
       connected: false,
-      channel: {},
-      pin_code: ''
+      channel: {}
     }
   },
   methods: {
@@ -81,6 +58,9 @@ export default {
       })[0]
       if(team) {
         return "background-color: " + team.background_color + ";";
+      }
+      else if (question.skipped) {
+        return "background-color: #111;";
       } else {
         return ""
       }
@@ -89,10 +69,10 @@ export default {
       consumer.disconnect();
       this.game = {};
     },
-    joinGame() {
+    joinGame(pin_code) {
       let self = this;
       this.channel = consumer.subscriptions.create(
-        {channel: 'ApplicationCable::GameChannel', pin_code: this.pin_code},
+        {channel: 'ApplicationCable::GameChannel', pin_code: pin_code},
         {
           initialized() {
             self.connected = true
@@ -135,31 +115,12 @@ export default {
 </script>
 
 <style lang="css">
-#viewer {
-  margin-top: 50px;
-}
-
-div.score-container h1 {
-  padding: 2px;
-  margin: 6px;
-}
-
-div.score-container h1 span {
-  padding: 15px;
-}
-
-.underline {
-  text-decoration: underline;
-}
-
-#join-game-container {
-  top: 40vmin;
-}
-
-button, #pin-code {
-  font-family: 'Montserrat', sans-serif;
-  text-align: center;
-  font-weight: bold !important;
+.flexbox {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Cherry Swash', cursive;
+  padding: 2vmin;
 }
 
 div.score-container {
@@ -168,59 +129,25 @@ div.score-container {
   justify-content: center;
 }
 
-#disconnect-btn {
-  position: fixed;
-  top: 0;
-  right: 0;
-  border-radius: 0px 0px 0px 0.25em;
+div.team div.name {
+  margin: 0px 1vmin;
+  padding: 0px 1.5vmin;
+  border-radius: 2vmin;
+  font-size: 4vmin;
 }
 
-div.score {
-  text-align: center;
-  font-size: 16pt;
-  font-weight: bold;
+div.team div.score {
   color: white;
-}
-
-div.category {
-  text-align: center;
-  margin: 20px;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 5px 10px 18px black;
-}
-
-div.question {
-  background-color: white;
-  text-align: center;
-  margin: 20px 40px 20px 40px;
-  border-radius: 10px;
-  border: 4px solid #ccc;
-  box-shadow: 5px 10px 18px black;
-}
-
-p {
-  margin: 10px;
-  text-align: center;
-  font-family: 'Cherry Swash', cursive;
-}
-
-p.question {
-  color: black;
-  font-size: 18pt;
-}
-
-p.title {
-  font-weight: bold;
-  font-size: 22pt;
+  font-size: 3vmin;
 }
 
 div.category-container {
+  font-size: 4vmin;
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: strech;
+  height: 100%;
 }
 
 div.question-container {
@@ -228,6 +155,27 @@ div.question-container {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: flex-start;
+  justify-content: space-between;
+}
+
+div.category {
+  padding: 2vmin;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 5px 10px 18px black;
+  margin-left: 2vmin;
+  margin-right: 2vmin;
+}
+
+div.question {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  border: 4px solid #ccc;
+  box-shadow: 5px 10px 18px black;
+  margin-left: 5vmin;
+  margin-right: 5vmin;
 }
 </style>

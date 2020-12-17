@@ -10,15 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-      let colors = ['aliceblue','lightsalmon','antiquewhite','lightseagreen','aqua','lightskyblue','aquamarine','lightslategray','azure','lightsteelblue','beige','lightyellow','bisque','lime','black','limegreen','blanchedalmond','linen','blue','magenta','blueviolet','maroon','brown','mediumaquamarine','burlywood','mediumblue','cadetblue','mediumorchid','chartreuse','mediumpurple','chocolate','mediumseagreen','coral','mediumslateblue','cornflowerblue','mediumspringgreen','cornsilk','mediumturquoise','crimson','mediumvioletred','cyan','midnightblue','darkblue','mintcream','darkcyan','mistyrose','darkgoldenrod','moccasin','darkgray','navajowhite','darkgreen','navy','darkkhaki','oldlace','darkmagenta','olive','darkolivegreen','olivedrab','darkorange','orange','darkorchid','orangered','darkred','orchid','darksalmon','palegoldenrod','darkseagreen','palegreen','darkslateblue','paleturquoise','darkslategray','palevioletred','darkturquoise','papayawhip','darkviolet','peachpuff','deeppink','peru','deepskyblue','pink','dimgray','plum','dodgerblue','powderblue','firebrick','purple','floralwhite','red','forestgreen','rosybrown','fuchsia','royalblue','gainsboro','saddlebrown','ghostwhite','salmon','gold','sandybrown','goldenrod','seagreen','gray','seashell','green','sienna','greenyellow','silver','honeydew','skyblue','hotpink','slateblue','indianred','slategray','indigo','snow','ivory','springgreen','khaki','steelblue','lavender','tan','lavenderblush','teal','lawngreen','thistle','lemonchiffon','tomato','lightblue','turquoise','lightcoral','violet','lightcyan','wheat','lightgoldenrodyellow','white','lightgreen','whitesmoke','lightgrey','yellow','lightpink','yellowgreen'];
-      let color = colors[Math.floor(Math.random() * colors.length)];
-      let body = document.getElementsByTagName('body')[0];
-      body.style.background = 'linear-gradient(to bottom, black,' + color + ')';
-    });
-  </script>
-
   <%= stylesheet_link_tag 'application' %>
   <%= stylesheet_pack_tag 'viewer_application' %>
   <%= javascript_pack_tag 'viewer_application' %>
@@ -26,9 +17,6 @@
 
 <body>
   <%= yield %>
-  <div class="container-fluid">
-  <div id='app'>
-    </div>
-  </div>
+  <div id='app'></div>
 </body>
 </html>

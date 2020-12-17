@@ -1,5 +1,5 @@
 <template lang="html">
-  <button id="logout-btn" class="btn btn-secondary pull-right" type="button" @click="logout">
+  <button id="logout-btn" class="btn btn-lg btn-secondary pull-right" type="button" @click="logout">
     <b-icon-person-circle/> Log ud
   </button>
 </template>
