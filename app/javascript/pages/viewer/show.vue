@@ -131,16 +131,16 @@ div.team div.name {
   margin: 0px 1vmin;
   padding: 0px 3vmin;
   border-radius: 2vmin;
-  font-size: 4vmin;
+  font-size: 2vw;
 }
 
 div.team div.score {
   color: white;
-  font-size: 3vmin;
+  font-size: 1.5vw;
 }
 
 div.category-container {
-  font-size: 4vmin;
+  font-size: 1.5vw;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -161,8 +161,8 @@ div.category {
   text-align: center;
   border-radius: 10px;
   box-shadow: 5px 10px 18px black;
-  margin-left: 2vmin;
-  margin-right: 2vmin;
+  margin-left: 0.5vmin;
+  margin-right: 0.5vmin;
 }
 
 div.question {
