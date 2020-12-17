@@ -173,8 +173,9 @@ div.question {
   border-radius: 10px;
   border: 4px solid #ccc;
   box-shadow: 5px 10px 18px black;
-  margin-left: 3vmin;
-  margin-right: 3vmin;
+  margin-left: 1vw;
+  margin-right: 1vw;
   margin-top: 1.5vh;
+  padding: 1vmin;
 }
 </style>
