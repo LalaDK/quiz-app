@@ -129,7 +129,7 @@ div.score-container {
 
 div.team div.name {
   margin: 0px 1vmin;
-  padding: 0px 1.5vmin;
+  padding: 0px 3vmin;
   border-radius: 2vmin;
   font-size: 4vmin;
 }
@@ -153,7 +153,7 @@ div.question-container {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 div.category {
@@ -173,7 +173,8 @@ div.question {
   border-radius: 10px;
   border: 4px solid #ccc;
   box-shadow: 5px 10px 18px black;
-  margin-left: 5vmin;
-  margin-right: 5vmin;
+  margin-left: 3vmin;
+  margin-right: 3vmin;
+  margin-top: 1.5vh;
 }
 </style>
