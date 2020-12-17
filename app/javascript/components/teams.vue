@@ -32,11 +32,11 @@
           </td>
           <td>
             <v-swatches v-model="background_color">
-              <button slot="trigger" type="button" name="button" class="btn btn-secondary">
+              <button slot="trigger" type="button" name="button" class="btn btn-dark">
                 <b-icon-brush /> Farve
               </button>
             </v-swatches>
-            <button class="btn btn-secondary" type="button" @click="create" :disabled="!name && !background_color">Tilføj hold</button>
+            <button class="btn btn-dark" type="button" @click="create" :disabled="!name && !background_color">Tilføj hold</button>
           </td>
         </tr>
       </tfoot>

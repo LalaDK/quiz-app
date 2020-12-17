@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
+    <button type="button" class="btn btn-dark left-corner-btn" @click="goBack">
       <b-icon-arrow-return-left /> Tilbage
     </button>
     <div class="center">
@@ -9,12 +9,12 @@
       <div class="input-group" v-if="editName">
         <input type="text" class="form-control form-control-lg" v-model="quiz.name" />
         <div class="input-group-append">
-          <button class="btn btn-lg btn-secondary" type="button" @click="save">Gem</button>
+          <button class="btn btn-lg btn-dark" type="button" @click="save">Gem</button>
         </div>
       </div>
 
       <div class="center" v-if="!editName">
-        <button slot="trigger" type="button" name="button" class="btn btn-secondary" @click="editName = true">
+        <button slot="trigger" type="button" name="button" class="btn btn-dark" @click="editName = true">
           <b-icon-pencil /> Omdøb
         </button>
       </div>
@@ -23,7 +23,7 @@
         <category-component v-for="category in quiz.categories" :key="category.id" :quiz_id="quiz.id" :id="category.id" />
       </div>
 
-      <button type="button" @click="addCategory" class="btn btn-secondary">Tilføj kategori</button>
+      <button type="button" @click="addCategory" class="btn btn-dark">Tilføj kategori</button>
     </div>
   </div>
 </template>

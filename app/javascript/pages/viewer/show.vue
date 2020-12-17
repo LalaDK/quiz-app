@@ -16,9 +16,7 @@
         <div v-for="category in game.categories" :key="category.id" class="question-container" >
           <div class="category" :style="{backgroundColor: category.background_color, color: category.font_color}"> {{category.name}} </div>
           <div v-for="question in category.questions" class="question" :style="questionStyle(question)">
-            <div>
-              {{question.reward}} point
-            </div>
+            <div>{{question.reward}}</div>
           </div>
         </div>
       </div>

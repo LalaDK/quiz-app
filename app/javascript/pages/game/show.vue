@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
+    <button type="button" class="btn btn-dark left-corner-btn" @click="goBack">
       <b-icon-arrow-return-left /> Tilbage
     </button>
     <div class="center">
@@ -18,7 +18,7 @@
 
     <div v-if="game.id && !game.lock_game">
       <teams-component :game_id="game.id" @input="get" />
-    <button type="button" class="center btn btn-lg btn-secondary" :disabled="(game.teams || []).length < 2" @click="startGame">Start spil</button>
+    <button type="button" class="center btn btn-lg btn-dark" :disabled="(game.teams || []).length < 2" @click="startGame">Start spil</button>
     <br><br>
     <div class="alert alert-primary" role="alert">
       Tilføj minimum 2 hold for at starte spillet ...
@@ -37,15 +37,15 @@
               {{game.current_question.answer}}
             </span>
           </h5>
-          <button type="button" class="btn btn-lg btn-secondary" @click="showAnswer" v-if="!game.show_answer">Vis svar</button>
+          <button type="button" class="btn btn-lg btn-dark" @click="showAnswer" v-if="!game.show_answer">Vis svar</button>
           <button type="button" class="btn btn-lg btn-danger" @click="closeQuestion">Luk</button>
           <div v-for="link in game.current_question.links">
             <button type="button" class="btn btn-lg btn-link" @click="openLink(link)">{{link.name}}</button>
           </div>
           <br><b>Giv {{game.current_question.reward}} point til:</b><br>
           <div class="btn-group center btn-group-lg" role="group" aria-label="...">
-            <button type="button" class="btn btn-secondary" @click="assignPointsTo(team.id)" v-for="team in game.teams" :style="{ backgroundColor: team.background_color }"> {{team.name}} </button>
-            <button type="button" class="btn btn-secondary" @click="assignPointsTo(null)">Ingen</button>
+            <button type="button" class="btn btn-dark" @click="assignPointsTo(team.id)" v-for="team in game.teams" :style="{ backgroundColor: team.background_color }"> {{team.name}} </button>
+            <button type="button" class="btn btn-dark" @click="assignPointsTo(null)">Ingen</button>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
+    <button type="button" class="btn btn-dark left-corner-btn" @click="goBack">
       <b-icon-arrow-return-left /> Tilbage
     </button>
     <div class="center">
@@ -9,18 +9,18 @@
         <div class="input-group" v-if="editName">
           <input type="text" class="form-control" v-model="category.name" />
           <div class="input-group-append">
-            <button class="btn btn-secondary" type="button" @click="save">Gem</button>
+            <button class="btn btn-dark" type="button" @click="save">Gem</button>
           </div>
         </div>
       </div>
     </div>
 
     <div class="center">
-      <button slot="trigger" type="button" name="button" class="btn btn-secondary" @click="editName = true">
+      <button slot="trigger" type="button" name="button" class="btn btn-dark" @click="editName = true">
         <b-icon-pencil /> Omdøb
       </button>
       <v-swatches v-model="category.background_color" @input="save">
-        <button slot="trigger" type="button" name="button" class="btn btn-secondary">
+        <button slot="trigger" type="button" name="button" class="btn btn-dark">
           <b-icon-brush /> Farve
         </button>
       </v-swatches>
@@ -39,7 +39,7 @@
         <p class="card-text" v-for="link in question.links">
           <a :href="link.link">{{link.name}}</a>
         </p>
-        <button type="button" name="button" class="btn btn-secondary" @click="editQuestion(question.id)">
+        <button type="button" name="button" class="btn btn-dark" @click="editQuestion(question.id)">
           <b-icon-pencil /> Rediger
         </button>
         <button type="button" name="button" class="btn btn-danger" @click="deleteQuestion(question.id)">

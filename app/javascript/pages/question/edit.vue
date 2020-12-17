@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    <button type="button" class="btn btn-secondary left-corner-btn" @click="goBack">
+    <button type="button" class="btn btn-dark left-corner-btn" @click="goBack">
       <b-icon-arrow-return-left /> Tilbage
     </button>
     <div class="card bg-dark text-white">
@@ -54,7 +54,7 @@
           <div class="form-group row">
             <label class="col-sm-4 col-form-label" for="question"></label>
             <div class="col-sm-8">
-              <button type="button" class="btn btn-secondary" @click="addLink">Tilføj link</button>
+              <button type="button" class="btn btn-dark" @click="addLink">Tilføj link</button>
               <button type="button" class="btn btn-primary" @click="save">Gem</button>
               <button type="button" class="btn btn-danger" @click="destroy">
                 <b-icon-trash /> Slet spørgsmål
